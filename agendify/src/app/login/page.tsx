@@ -1,4 +1,5 @@
 "use client";
+import useHttp from "@/hooks/useHttp";
 import {
     Box,
     Button,
@@ -11,7 +12,9 @@ import { useState } from "react";
 
 export default function Login() {
     const [email, setEmail] = useState<string>("");
-    const [senha, setSenha] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+
+    const { loading, error, data, requestHttp } = useHttp();
 
     return (
         <Container
@@ -53,19 +56,20 @@ export default function Login() {
                 <TextField
                     sx={{ width: 400 }}
                     type="password"
-                    onChange={(event) => setSenha(event.target.value)}
+                    onChange={(event) => setPassword(event.target.value)}
                 />
             </Box>
             <Button
                 variant="contained"
                 href="#"
-                disabled={email === "" || senha === ""}
+                disabled={email === "" || password === ""}
+                onClick={() => requestHttp()}
             >
                 Entrar
             </Button>
             <Typography>
                 Não tem uma conta?{" "}
-                <Link href="#" color="secondary" underline="hover">
+                <Link href="/register" color="secondary" underline="hover">
                     Cadastre-se
                 </Link>
             </Typography>
