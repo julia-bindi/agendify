@@ -15,6 +15,7 @@ const cores = {
     dark: "#0599D1",
     contrastText: "#FFFFFF",
     background: '#00AEEF0F',
+    text: '#000000'
   },
   secondary: {
     main: "#009A34",
@@ -69,6 +70,32 @@ const theme = createTheme({
         },
       },
     },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          borderRadius: '8px',
+          border: '1px solid ' + cores.primary.main,
+          backgroundColor: cores.primary.contrastText,
+          color: cores.primary.text,
+          maxWidth: 200,
+          textAlign: 'center'
+        }
+      }
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        colorPrimary: {
+          color: cores.primary.main
+        }
+      }
+    },
+    MuiRadio: {
+      styleOverrides: {
+        colorPrimary: {
+          color: cores.primary.main
+        }
+      }
+    }
   },
 });
 

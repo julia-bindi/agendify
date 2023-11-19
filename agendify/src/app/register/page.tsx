@@ -3,14 +3,15 @@ import useHttp from "@/hooks/useHttp";
 import {
     Box,
     Button,
+    Checkbox,
     Container,
     FormControl,
     FormControlLabel,
-    FormLabel,
     Link,
     Radio,
     RadioGroup,
     TextField,
+    Tooltip,
     Typography,
 } from "@mui/material";
 import { useState } from "react";
@@ -50,89 +51,75 @@ export default function Register() {
             >
                 Crie a sua conta
             </Typography>
-            {/* <FormControl
-                required
-                error={!client && !company}
-                component="fieldset"
-                variant="standard"
+            <Container
+                sx={{ 
+                    width: 400,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    rowGap: "40px",
+                }}
             >
-                <FormLabel component="legend">Selecione uma opção</FormLabel>
-                <FormGroup>
-                    <FormControlLabel
-                        label="Cliente"
-                        control={
-                            <Checkbox
-                                checked={client}
-                                onChange={(event) => {
-                                    setClient(event.target.checked);
-                                }}
-                            />
-                        }
-                    />
-                    <FormControlLabel
-                        label="Empresa"
-                        control={
-                            <Checkbox
-                                checked={company}
-                                onChange={(event) => {
-                                    setCompany(event.target.checked);
-                                }}
-                            />
-                        }
-                    />
-                </FormGroup>
-            </FormControl> */}
-            <FormControl>
-                <FormLabel id="demo-row-radio-buttons-group-label">
-                    Gender
-                </FormLabel>
-                <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                    onChange={(event) => setOption(event.target.value)}
+                <FormControl
+                    sx={{
+                        alignSelf: "flex-start",
+                    }}
                 >
-                    <FormControlLabel
-                        value="client"
-                        control={<Radio />}
-                        label="Cliente"
+                    <RadioGroup
+                        row
+                        aria-labelledby="demo-row-radio-buttons-group-label"
+                        name="row-radio-buttons-group"
+                        onChange={(event) => setOption(event.target.value)}
+                    >
+                        <FormControlLabel
+                            value="client"
+                            control={<Radio />}
+                            label="Cliente"
+                        />
+                        <FormControlLabel
+                            value="company"
+                            control={<Radio />}
+                            label="Empresa"
+                        />
+                    </RadioGroup>
+                </FormControl>
+                <Box>
+                    <Typography>E-mail *</Typography>
+                    <TextField
+                        sx={{ width: 400 }}
+                        onChange={(event) => setEmail(event.target.value)}
                     />
-                    <FormControlLabel
-                        value="company"
-                        control={<Radio />}
-                        label="Empresa"
+                </Box>
+                <Box>
+                    <Typography>Senha *</Typography>
+                    <TextField
+                        sx={{ width: 400 }}
+                        type="password"
+                        onChange={(event) => setPassword(event.target.value)}
                     />
-                </RadioGroup>
-            </FormControl>
-            <Box>
-                <Typography>E-mail *</Typography>
-                <TextField
-                    sx={{ width: 400 }}
-                    onChange={(event) => setEmail(event.target.value)}
-                />
-            </Box>
-            <Box>
-                <Typography>Senha *</Typography>
-                <TextField
-                    sx={{ width: 400 }}
-                    type="password"
-                    onChange={(event) => setPassword(event.target.value)}
-                />
-            </Box>
-            <Button
-                variant="contained"
-                href="#"
-                disabled={email === "" || password === ""}
-                onClick={() => requestHttp()}
-            >
-                Continuar
-            </Button>
-            <Typography>
-                Já tem uma conta?{" "}
-                <Link href="/login" color="secondary" underline="hover">
-                    Entrar
-                </Link>
-            </Typography>
+                </Box>
+                <Tooltip
+                    title={'Campo obrigatório vazio ou preenchido incorretamente'}
+                    placement={'top'}
+                >
+                    <span /* Needed for tooltip on disabled Button*/>
+                        <Button
+                            variant="contained"
+                            href="#"
+                            disabled={email === "" || password === ""}
+                            onClick={() => requestHttp()}
+                        >
+                            Continuar
+                        </Button>
+                    </span>
+                </Tooltip>
+                <Typography>
+                    Já tem uma conta?{" "}
+                    <Link href="/login" color="secondary" underline="hover">
+                        Entrar
+                    </Link>
+                </Typography>
+            </Container>
         </Container>
     );
 }

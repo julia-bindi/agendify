@@ -7,6 +7,7 @@ import {
     Link,
     TextField,
     Typography,
+    Tooltip
 } from "@mui/material";
 import { useState } from "react";
 
@@ -15,6 +16,8 @@ export default function Login() {
     const [password, setPassword] = useState<string>("");
 
     const { loading, error, data, requestHttp } = useHttp();
+
+    const validInput = !(email === "" || password === "")
 
     return (
         <Container
@@ -59,14 +62,21 @@ export default function Login() {
                     onChange={(event) => setPassword(event.target.value)}
                 />
             </Box>
-            <Button
-                variant="contained"
-                href="#"
-                disabled={email === "" || password === ""}
-                onClick={() => requestHttp()}
+            <Tooltip
+                title={validInput ? '' : 'Para entrar, são necessários e-mail e senha válidos.'}
+                placement='top'
             >
-                Entrar
-            </Button>
+                <span /* Needed for tooltip on disabled Button*/>
+                    <Button
+                        variant="contained"
+                        href="#"
+                        disabled={!validInput}
+                        onClick={() => requestHttp()}
+                    >
+                        Entrar
+                    </Button>
+                </span>
+            </Tooltip>
             <Typography>
                 Não tem uma conta?{" "}
                 <Link href="/register" color="secondary" underline="hover">
