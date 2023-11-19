@@ -7,17 +7,21 @@ import {
     Link,
     TextField,
     Typography,
-    Tooltip
+    Tooltip,
+    useTheme
 } from "@mui/material";
 import { useState } from "react";
 
 export default function Login() {
+
+    const theme = useTheme();
+
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
     const { loading, error, data, requestHttp } = useHttp();
 
-    const validInput = !(email === "" || password === "")
+    const validInput = !(email === "" || password === "");
 
     return (
         <Container
@@ -42,7 +46,7 @@ export default function Login() {
                     fontSize: 32,
                     fontWeight: 400,
                     textAlign: "center",
-                    borderBlockEnd: "1px solid #00AEEF",
+                    borderBlockEnd: "1px solid " + theme.palette.primary.main,
                 }}
             >
                 Acesse a sua conta

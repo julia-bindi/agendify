@@ -15,10 +15,12 @@ const cores = {
     dark: "#0599D1",
     contrastText: "#FFFFFF",
     background: '#00AEEF0F',
-    text: '#000000'
+    text: '#000000',
+    warning: '#F00'
   },
   secondary: {
     main: "#009A34",
+    light: "#F00",
   },
 }
 
