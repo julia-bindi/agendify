@@ -41,10 +41,25 @@ const theme = createTheme({
             height: 32,
             lineHeight: 0,
             borderRadius: 4,
-            padding: '0px 24px'
+            padding: '0px 24px',
           },
         },
       ],
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          height: 32,
+          lineHeight: 0,
+          borderRadius: 4,
+          padding: '0px 24px',
+          backgroundColor: cores.primary.light,
+          "&:hover ": {
+            backgroundColor: cores.primary.light,
+            opacity: 0.8
+          }
+        },
+      },
     },
     MuiTextField: {
       styleOverrides: {
@@ -62,6 +77,21 @@ const theme = createTheme({
         },
         root: {
           height: 32,
+          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
+            backgroundColor: cores.primary.background,
+            borderColor: 'var(--TextField-brandBorderHoverColor)',
+          },
+          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
+            borderBlock: '2px solid var(--TextField-brandBorderFocusedColor)',
+          },
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          height: 32,
+          borderColor: 'var(--TextField-brandBorderColor)',
           [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
             backgroundColor: cores.primary.background,
             borderColor: 'var(--TextField-brandBorderHoverColor)',

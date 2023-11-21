@@ -96,8 +96,12 @@ export default function Register() {
                 {/* Blank column */}
                 <Grid item xs={4}/>
                 {/* Main forms */}
-                <Grid item xs={4}>
+                <Grid item xs={4}
+                    sx={{
+                    }}
+                >
                     <Container
+                        disableGutters
                         sx={{ 
                             width: 400,
                             display: "flex",
@@ -152,21 +156,27 @@ export default function Register() {
                                 onChange={(event) => setConfirmPassword(event.target.value)}
                             />
                         </Box>
-                        <Tooltip
-                            title={!(validMail && validPassword) && 'Campo obrigatório vazio ou preenchido incorretamente'}
-                            placement={'top'}
+                        <Box
+                            sx={{
+                                alignSelf: "flex-end",
+                            }}
                         >
-                            <span /* Needed for tooltip on disabled Button*/>
-                                <Button
-                                    variant="contained"
-                                    href="#"
-                                    disabled={!(validMail && validPassword)}
-                                    onClick={() => requestHttp()}
-                                >
-                                    Continuar
-                                </Button>
-                            </span>
-                        </Tooltip>
+                            <Tooltip
+                                title={!(validMail && validPassword) && 'Campo obrigatório vazio ou preenchido incorretamente'}
+                                placement={'top'}
+                            >
+                                <span /* Needed for tooltip on disabled Button*/>
+                                    <Button
+                                        variant="contained"
+                                        href="#"
+                                        disabled={!(validMail && validPassword)}
+                                        onClick={() => requestHttp()}
+                                    >
+                                        Continuar
+                                    </Button>
+                                </span>
+                            </Tooltip>
+                        </Box>
                         <Typography>
                             Já tem uma conta?{" "}
                             <Link href="/login" color="secondary" underline="hover">
