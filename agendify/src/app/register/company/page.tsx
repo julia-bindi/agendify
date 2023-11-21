@@ -11,7 +11,10 @@ import {
     MenuItem,
     Checkbox,
     ListItemText,
-    OutlinedInput
+    OutlinedInput,
+    Tooltip,
+    Button,
+    Box
  } from "@mui/material";
  import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { useState } from "react";
@@ -30,9 +33,14 @@ export default function RegisterCompany() {
     const [selectedDays, setSelectedDays] = useState<string[]>([]);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [telephone, setTelephone] = useState('');
+    const [telephone, setTelephone] = useState("");
+    const [time, setTime] = useState("");
+    const [street, setStreet] = useState("");
+    const [number, setNumber] = useState("");
+    const [district, setDistrict] = useState("");
+    const [UF, setUF] = useState("");
     
-    console.log(selectedCategories)
+    const validInput = (selectedCategories && selectedDays && name && description && telephone && time && street && number && district && UF)
 
     const handleCategory = (event: SelectChangeEvent<typeof selectedCategories>) => {
         const {
@@ -89,10 +97,10 @@ export default function RegisterCompany() {
             >
                 Complete os dados para criar a sua conta.
             </Typography>
-            <Grid container spacing={4}
+            <Grid container spacing={2}
                 sx={{
                     width: 670,
-                    marginTop: "40px"
+                    marginTop: "20px"
                 }}
             >
                 <Grid item xs={4}>
@@ -101,7 +109,7 @@ export default function RegisterCompany() {
                         component="label"
                         sx={{
                             width: "100%",
-                            height: "100%"
+                            height: "82%"
                         }}
                     >
                         <FileUploadIcon/>
@@ -125,9 +133,6 @@ export default function RegisterCompany() {
                         <TextField
                             sx={{ 
                                 width: "100%", 
-                                "&.MuiOutlinedInput": {
-                                    height: "100px" // Faz nada, mas precisa fazer, esse input é mais alto
-                                }
                             }}
                             size={"small"}
                             onChange={(event) => setDescription(event.target.value)}
@@ -172,7 +177,7 @@ export default function RegisterCompany() {
                         <Typography>Horário *</Typography>
                         <TextField
                             sx={{ width: "100%" }}
-                            onChange={(event) => setName(event.target.value)}
+                            onChange={(event) => setTime(event.target.value)}
                             placeholder="00:00 às 00:00"
                         />
                     </Grid>
@@ -195,6 +200,63 @@ export default function RegisterCompany() {
                             ))}
                         </Select>
                     </Grid>
+                </Grid>
+                <Grid item xs={8}>
+                    <Typography>Localização *</Typography>
+                    <Grid container spacing={2}>
+                        <Grid item xs={9}>
+                            <TextField
+                                sx={{ width: "100%" }}
+                                onChange={(event) => setStreet(event.target.value)}
+                                placeholder="Rua"
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <TextField
+                                sx={{ width: "100%" }}
+                                onChange={(event) => setNumber(event.target.value)}
+                                placeholder="Nº"
+                            />
+                        </Grid>
+                        <Grid item xs={9}>
+                            <TextField
+                                sx={{ width: "100%" }}
+                                onChange={(event) => setDistrict(event.target.value)}
+                                placeholder="Bairro"
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <TextField
+                                sx={{ width: "100%" }}
+                                onChange={(event) => setUF(event.target.value)}
+                                placeholder="UF"
+                            />
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid item xs={4}>
+                    <Box sx={{display: 'flex', width: '100%', height: '100%'}}>
+                        <Tooltip
+                            title={!(validInput) && 'Campo obrigatório vazio ou preenchido incorretamente'}
+                            placement={'top'}
+                        >
+                            <span /* Needed for tooltip on disabled Button */
+                                style={{
+                                    alignSelf: "flex-end",
+                                    marginLeft: "auto",
+                                }}
+                            >
+                                <Button
+                                    variant="contained"
+                                    href="#"
+                                    disabled={!(validInput)}
+                                    onClick={() => {}}
+                                >
+                                    Continuar
+                                </Button>
+                            </span>
+                        </Tooltip>
+                    </Box>
                 </Grid>
             </Grid>
         </Container>
