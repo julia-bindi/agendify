@@ -70,6 +70,13 @@ const theme = createTheme({
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        root:{
+          borderColor: 'var(--TextField-brandBorderColor)',
+        }
+      }
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         notchedOutline: {
@@ -77,21 +84,6 @@ const theme = createTheme({
         },
         root: {
           height: 32,
-          [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-            backgroundColor: cores.primary.background,
-            borderColor: 'var(--TextField-brandBorderHoverColor)',
-          },
-          [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
-            borderBlock: '2px solid var(--TextField-brandBorderFocusedColor)',
-          },
-        },
-      },
-    },
-    MuiSelect: {
-      styleOverrides: {
-        root: {
-          height: 32,
-          borderColor: 'var(--TextField-brandBorderColor)',
           [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
             backgroundColor: cores.primary.background,
             borderColor: 'var(--TextField-brandBorderHoverColor)',

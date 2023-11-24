@@ -34,13 +34,14 @@ export default function RegisterCompany() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [telephone, setTelephone] = useState("");
-    const [time, setTime] = useState("");
+    const [startTime, setStartTime] = useState("");
+    const [endTime, setEndTime] = useState("");
     const [street, setStreet] = useState("");
     const [number, setNumber] = useState("");
     const [district, setDistrict] = useState("");
     const [UF, setUF] = useState("");
     
-    const validInput = (selectedCategories && selectedDays && name && description && telephone && time && street && number && district && UF)
+    const validInput = (selectedCategories && selectedDays && name && description && telephone && startTime && endTime && street && number && district && UF)
 
     const handleCategory = (event: SelectChangeEvent<typeof selectedCategories>) => {
         const {
@@ -83,7 +84,7 @@ export default function RegisterCompany() {
                     textAlign: "left",
                 }}
             >
-                Olá, Cliente!
+                Olá, Empresa!
             </Typography>
             <Typography
                 sx={{
@@ -140,7 +141,7 @@ export default function RegisterCompany() {
                     </Grid>
                 </Grid>
                 <Grid item container xs={12} spacing={2}>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <Typography>Telefone *</Typography>
                         <MuiTelInput 
                             value={telephone} 
@@ -154,7 +155,26 @@ export default function RegisterCompany() {
                             placeholder="00 00000 0000"
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
+                        <Typography>Categorias *</Typography>
+                        <Select 
+                            multiple
+                            title={selectedCategories.join(', ')}
+                            sx={{width: "100%"}} 
+                            value={selectedCategories}
+                            onChange={handleCategory}
+                            renderValue={(selected: string[]) => selected.join(', ')}
+                            input={<OutlinedInput label="Selecione" />}
+                        >
+                            {categories.map((category) => (
+                                <MenuItem key={category} value={category}>
+                                    <Checkbox checked={selectedCategories.indexOf(category) > -1}/>
+                                    <ListItemText primary={category} />
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </Grid>
+                    <Grid item xs={6}>
                         <Typography>Dias *</Typography>
                         <Select 
                             multiple
@@ -174,31 +194,22 @@ export default function RegisterCompany() {
                         </Select>
                     </Grid>
                     <Grid item xs={3}>
-                        <Typography>Horário *</Typography>
+                        <Typography>Abertura *</Typography>
                         <TextField
                             sx={{ width: "100%" }}
-                            onChange={(event) => setTime(event.target.value)}
-                            placeholder="00:00 às 00:00"
+                            onChange={(event) => setStartTime(event.target.value)}
+                            placeholder="00:00"
+                            type="time"
                         />
                     </Grid>
                     <Grid item xs={3}>
-                        <Typography>Categorias *</Typography>
-                        <Select 
-                            multiple
-                            title={selectedCategories.join(', ')}
-                            sx={{width: "100%"}} 
-                            value={selectedCategories}
-                            onChange={handleCategory}
-                            renderValue={(selected: string[]) => selected.join(', ')}
-                            input={<OutlinedInput label="Selecione" />}
-                        >
-                            {categories.map((category) => (
-                                <MenuItem key={category} value={category}>
-                                    <Checkbox checked={selectedCategories.indexOf(category) > -1}/>
-                                    <ListItemText primary={category} />
-                                </MenuItem>
-                            ))}
-                        </Select>
+                        <Typography>Fechamento *</Typography>
+                        <TextField
+                            sx={{ width: "100%" }}
+                            onChange={(event) => setEndTime(event.target.value)}
+                            placeholder="00:00"
+                            type="time"
+                        />
                     </Grid>
                 </Grid>
                 <Grid item xs={8}>
