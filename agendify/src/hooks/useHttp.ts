@@ -6,16 +6,17 @@ export default function useHttp() {
     const [error, setError] = useState<string>("");
     const [data, setData] = useState<string>("");
 
-    const requestHttp = () => {
+    const requestHttp = (url: string, method: string, body: object) => {
         setLoading(true);
         setError("");
         setData("");
 
-        fetch(`https://jsonmock.hackerrank.com/api/universities?page=1`, {
-            method: "GET",
+        fetch(`https://agendify.onrender.com/api/v1/${url}`, {
+            method: method,
             headers: {
                 "Content-Type": "application/json; charset=UTF-8",
             },
+            body: JSON.stringify(body),
         })
             .then((response) => response.json())
             .then((data) => {
