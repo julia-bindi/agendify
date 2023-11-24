@@ -6,12 +6,6 @@ import {
     Grid,
     IconButton,
     TextField,
-    Select,
-    SelectChangeEvent,
-    MenuItem,
-    Checkbox,
-    ListItemText,
-    OutlinedInput,
     Tooltip,
     Button,
     Box
@@ -23,6 +17,7 @@ import {
     categories,
     weekDays
  } from "@/utils/constants";
+import CustomSelect from "@/components/CustomSelect";
 
 export default function RegisterCompany() {
 
@@ -43,25 +38,13 @@ export default function RegisterCompany() {
     
     const validInput = (selectedCategories && selectedDays && name && description && telephone && startTime && endTime && street && number && district && UF)
 
-    const handleCategory = (event: SelectChangeEvent<typeof selectedCategories>) => {
-        const {
-            target: { value },
-        } = event;
-        setSelectedCategories(
-        // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
-        );
-    };
+    const handleCategoryChange = (categories: string[]) => {
+        setSelectedCategories(categories)
+    }
 
-    const handleDays = (event: SelectChangeEvent<typeof selectedCategories>) => {
-        const {
-            target: { value },
-        } = event;
-        setSelectedDays(
-        // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
-        );
-    };
+    const handleDaysChange = (categories: string[]) => {
+        setSelectedDays(categories)
+    }
 
     return(
         <Container
@@ -157,41 +140,11 @@ export default function RegisterCompany() {
                     </Grid>
                     <Grid item xs={6}>
                         <Typography>Categorias *</Typography>
-                        <Select 
-                            multiple
-                            title={selectedCategories.join(', ')}
-                            sx={{width: "100%"}} 
-                            value={selectedCategories}
-                            onChange={handleCategory}
-                            renderValue={(selected: string[]) => selected.join(', ')}
-                            input={<OutlinedInput label="Selecione" />}
-                        >
-                            {categories.map((category) => (
-                                <MenuItem key={category} value={category}>
-                                    <Checkbox checked={selectedCategories.indexOf(category) > -1}/>
-                                    <ListItemText primary={category} />
-                                </MenuItem>
-                            ))}
-                        </Select>
+                        <CustomSelect options={categories} onChange={handleCategoryChange}/>
                     </Grid>
                     <Grid item xs={6}>
                         <Typography>Dias *</Typography>
-                        <Select 
-                            multiple
-                            title={selectedDays.join(', ')}
-                            sx={{width: "100%"}} 
-                            value={selectedDays}
-                            onChange={handleDays}
-                            renderValue={(selected: string[]) => selected.join(', ')}
-                            input={<OutlinedInput label="Selecione" />}
-                        >
-                            {weekDays.map((day) => (
-                                <MenuItem key={day} value={day}>
-                                    <Checkbox checked={selectedDays.indexOf(day) > -1}/>
-                                    <ListItemText primary={day} />
-                                </MenuItem>
-                            ))}
-                        </Select>
+                        <CustomSelect options={weekDays} onChange={handleDaysChange}/>
                     </Grid>
                     <Grid item xs={3}>
                         <Typography>Abertura *</Typography>
