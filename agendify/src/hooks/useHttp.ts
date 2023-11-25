@@ -3,12 +3,18 @@ import { useState } from "react";
 
 export default function useHttp() {
     const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string>("");
+    const [success, setSuccess] = useState<boolean>(false);
+    const [error, setError] = useState<boolean>(false);
     const [data, setData] = useState<string>("");
 
-    const requestHttp = (url: string, method: string, body: object) => {
+    const requestHttp = (
+        request: { url: string; method: string },
+        body: object
+    ) => {
+        const { url, method } = request;
         setLoading(true);
-        setError("");
+        setSuccess(false);
+        setError(false);
         setData("");
 
         fetch(`https://agendify.onrender.com/api/v1/${url}`, {
@@ -22,15 +28,17 @@ export default function useHttp() {
             .then((data) => {
                 setData(data);
                 setLoading(false);
+                setSuccess(true);
             })
-            .catch((error) => {
-                setError(error.message || "Something went wrong!");
+            .catch(() => {
                 setLoading(false);
+                setError(true);
             });
     };
 
     return {
         loading,
+        success,
         error,
         data,
         requestHttp,

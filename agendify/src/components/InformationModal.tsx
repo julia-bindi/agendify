@@ -26,7 +26,7 @@ export default function InformationModal({
                     top: "50%",
                     left: "50%",
                     transform: "translate(-50%, -50%)",
-                    padding: "24px 40px",
+                    padding: "24px 32px",
                     boxShadow: 24,
                     borderRadius: 4,
                     color: theme.palette.primary.contrastText,
@@ -36,7 +36,7 @@ export default function InformationModal({
                 {icon}
                 <Typography
                     sx={{
-                        fontSize: 24,
+                        fontSize: 16,
                         fontWeight: 400,
                     }}
                 >

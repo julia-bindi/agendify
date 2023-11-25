@@ -107,11 +107,12 @@ const theme = createTheme({
         MuiTooltip: {
             styleOverrides: {
                 tooltip: {
-                    borderRadius: "8px",
-                    border: "1px solid " + cores.primary.main,
-                    backgroundColor: cores.primary.contrastText,
-                    color: cores.primary.text,
+                    color: cores.primary.contrastText,
+                    backgroundColor: cores.primary.main,
+                    fontSize: 12,
+                    textWrap: "balance",
                     maxWidth: 200,
+                    borderRadius: 8,
                     textAlign: "center",
                 },
             },

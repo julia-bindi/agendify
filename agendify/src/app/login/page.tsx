@@ -1,6 +1,8 @@
 "use client";
 import InformationModal from "@/components/InformationModal";
 import useHttp from "@/hooks/useHttp";
+import { USER_NOT_FOUND } from "@/utils/constants";
+import { LOGIN_REQUEST } from "@/utils/requests";
 import { CancelOutlined, ReportProblemOutlined } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import {
@@ -12,9 +14,7 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
-import { useState } from "react";
-
-const USER_NOT_FOUND = "user-not-found";
+import { useEffect, useState } from "react";
 
 export default function Login() {
     const theme = useTheme();
@@ -22,32 +22,35 @@ export default function Login() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-    const { loading, error, data, requestHttp } = useHttp();
+    const { loading, success, error, data, requestHttp } = useHttp();
 
-    console.log({ loading, error, data });
+    const filledInputs = !(email === "" || password === "");
+    const userNotFound = success && data === USER_NOT_FOUND;
 
-    const validInput = !(email === "" || password === "");
+    useEffect(() => {
+        if (success && !userNotFound) location.replace("/");
+    }, [success, userNotFound]);
 
-    if (error)
-        return (
-            <InformationModal
-                icon={<CancelOutlined fontSize="large" />}
-                text="Algo deu errado, tente novamente!"
-                backgroundColor={theme.palette.error.main}
-            />
-        );
+    const renderUserNotFound = () => (
+        <InformationModal
+            icon={<ReportProblemOutlined fontSize="medium" />}
+            text="Usuário não encontrado!"
+            backgroundColor={theme.palette.primary.main}
+        />
+    );
 
-    if (data === USER_NOT_FOUND)
-        return (
-            <InformationModal
-                icon={<ReportProblemOutlined fontSize="large" />}
-                text="Usuário não encontrado!"
-                backgroundColor={theme.palette.primary.main}
-            />
-        );
+    const renderError = () => (
+        <InformationModal
+            icon={<CancelOutlined fontSize="medium" />}
+            text="Algo deu errado, tente novamente!"
+            backgroundColor={theme.palette.error.main}
+        />
+    );
 
     return (
         <>
+            {error && renderError()}
+            {userNotFound && renderUserNotFound()}
             <Container
                 disableGutters
                 maxWidth={false}
@@ -93,19 +96,19 @@ export default function Login() {
                 </Box>
                 <Tooltip
                     title={
-                        validInput
+                        filledInputs
                             ? ""
-                            : "Para entrar, são necessários e-mail e senha válidos."
+                            : "Necessário preencher os campos de e-mail e senha."
                     }
                     placement="top"
                 >
-                    <span /* Needed for tooltip on disabled Button*/>
+                    <span>
                         <LoadingButton
                             variant="contained"
                             loading={loading}
-                            disabled={!validInput}
+                            disabled={!filledInputs}
                             onClick={() =>
-                                requestHttp("user/login", "POST", {
+                                requestHttp(LOGIN_REQUEST, {
                                     email,
                                     password,
                                 })
