@@ -113,7 +113,7 @@ export default function RegisterClient({
                         width: 400,
                         display: "flex",
                         flexDirection: "column",
-                        rowGap: "40px",
+                        rowGap: "20px",
                         marginTop: "40px",
                     }}
                 >

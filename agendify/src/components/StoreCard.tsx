@@ -4,47 +4,61 @@ import Image from "next/image";
 type StoreCardProps = {
     image: string,
     name: string,
-    categories: string[],
+    category: string[],
     description: string,
-    days: string[],
-    openingTime: string,
-    closingTime: string,
-    address: string
+    workDays: string[],
+    startTime: string,
+    endTime: string,
+    street: string,
+    homeNumber: string,
+    neighborhood: string,
+    state: string,
+    city: string,
 };
 
 export default function StoreCard({
     image,
     name,
-    categories,
+    category,
     description,
-    days,
-    openingTime,
-    closingTime,
-    address
+    workDays,
+    startTime,
+    endTime,
+    street,
+    homeNumber,
+    neighborhood,
+    state,
+    city,
 }: StoreCardProps) {
     return (
         <Box
             sx={{
                 display: 'flex',
+                gap: '10px',
             }}
         >
             <Image
               src={image}
               alt={name}
-              width={200}
-              height={46}
+              width={144}
+              height={144}
+              style={{
+                borderRadius: '8px'
+              }}
               priority
             />
             <Box
                 sx={{
-
+                    display: 'flex',
+                    flexFlow: 'column',
+                    gap: '6px'
                 }}
             >
-                <Typography>{name}</Typography>
-                <Typography>{categories.join(', ')}</Typography>
-                <Typography>{description}</Typography>
-                <Typography>{days.join(', ') + " " + openingTime + " às " + closingTime}</Typography>
-                <Typography>{address}</Typography>
+                <Typography sx={{fontSize: 1*24}}>{name}</Typography>
+                <Typography sx={{fontSize: 1*16}}>{category.join(', ')}</Typography>
+                <Typography sx={{fontSize: 1*14}}>{description}</Typography>
+                <Typography sx={{fontSize: 1*14}}>{workDays.join(', ') + " - " + startTime + " às " + endTime}</Typography>
+                <Typography sx={{fontSize: 1*14}}>{[street, homeNumber, neighborhood, city, state].join(', ')}</Typography>
             </Box>
         </Box>
     );

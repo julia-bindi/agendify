@@ -1,10 +1,11 @@
 "use client";
 import CustomSelect from "@/components/CustomSelect";
 import StoreCard from "@/components/StoreCard";
-import { categories, dummyStores } from "@/utils/constants";
+import { category, dummyStores } from "@/utils/constants";
 import { Box, Grid, TextField, Typography, useTheme } from "@mui/material";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import { useState } from "react";
+import 'overlayscrollbars/overlayscrollbars.css';
 
 export default function Login() {
     const theme = useTheme();
@@ -24,7 +25,7 @@ export default function Login() {
             sx={{
                 width: "100%",
                 position: "fixed",
-                height: "calc(100% - 46px)",
+                height: "85%",
             }}
         >
             <Grid
@@ -40,7 +41,7 @@ export default function Login() {
                     xs={3}
                     sx={{
                         border: 1,
-                        borderRadius: 10,
+                        borderRadius: 6,
                         borderColor: theme.palette.primary.main,
                         margin: "20px",
                         padding: "30px",
@@ -59,7 +60,7 @@ export default function Login() {
                         <Typography sx={{ alignSelf: "flex-start" }}>
                             Categorias
                         </Typography>
-                        <CustomSelect options={categories} />
+                        <CustomSelect options={category} />
                     </Box>
                     <Box sx={{ width: "100%" }}>
                         <Typography sx={{ alignSelf: "flex-start" }}>
@@ -136,20 +137,29 @@ export default function Login() {
                     xs={8}
                     sx={{
                         border: 1,
-                        borderRadius: 10,
+                        borderRadius: 6,
                         borderColor: theme.palette.primary.main,
                         margin: "20px",
-                        overflow: "auto",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
+                        padding: "25px",
+                        overflowY: "scrollbar",
                         width: "fit-content",
                     }}
                 >
-                    <OverlayScrollbarsComponent>
-                        {dummyStores.map((store, i) => (
-                            <StoreCard key={store.name + i} {...store} />
-                        ))}
+                    <OverlayScrollbarsComponent
+                        defer
+                    >
+                        <Box
+                            sx={{
+                                display: "flex",
+                                gap: "20px",
+                                flexDirection: "column",
+                                alignItems: "start",
+                            }}
+                        >
+                            {dummyStores.map((store, i) => (
+                                <StoreCard key={store.name + i} {...store} />
+                            ))}
+                        </Box>
                     </OverlayScrollbarsComponent>
                 </Grid>
             </Grid>

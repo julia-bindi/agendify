@@ -103,7 +103,7 @@ export default function RegisterDefault({
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
-                            rowGap: "40px",
+                            rowGap: "20px",
                         }}
                     >
                         <FormControl
