@@ -5,7 +5,7 @@ export default function useHttp() {
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
-    const [data, setData] = useState<string>("");
+    const [data, setData] = useState<any>(null);
 
     const requestHttp = (
         request: { url: string; method: string },
@@ -15,7 +15,7 @@ export default function useHttp() {
         setLoading(true);
         setSuccess(false);
         setError(false);
-        setData("");
+        setData(null);
 
         fetch(`https://agendify.onrender.com/api/v1/${url}`, {
             method: method,

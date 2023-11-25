@@ -183,7 +183,7 @@ export default function RegisterDefault({
                             Já tem uma conta?{" "}
                             <Link
                                 href="/login"
-                                color="secondary"
+                                color="primary"
                                 underline="hover"
                             >
                                 Entrar

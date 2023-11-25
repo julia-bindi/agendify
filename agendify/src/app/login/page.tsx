@@ -1,5 +1,6 @@
 "use client";
 import InformationModal from "@/components/InformationModal";
+import { AuthContext } from "@/context/AuthContext";
 import useHttp from "@/hooks/useHttp";
 import { USER_NOT_FOUND } from "@/utils/constants";
 import { LOGIN_REQUEST } from "@/utils/requests";
@@ -14,10 +15,14 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
-import { ReactNode, useEffect, useState } from "react";
+import { redirect } from "next/navigation";
+import { ReactNode, useContext, useEffect, useState } from "react";
 
 export default function Login(): ReactNode {
     const theme = useTheme();
+    const context = useContext(AuthContext);
+
+    const { setToken, setUserType, setName } = context;
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -28,8 +33,14 @@ export default function Login(): ReactNode {
     const userNotFound = success && data === USER_NOT_FOUND;
 
     useEffect(() => {
-        if (success && !userNotFound) location.replace("/");
-    }, [success, userNotFound]);
+        if (success && !userNotFound) {
+            const { token, type, name } = data;
+            setToken(token);
+            setUserType(type);
+            setName(name);
+            redirect("/");
+        }
+    }, [success, data, userNotFound, setToken, setUserType, setName]);
 
     const renderError = (): ReactNode => (
         <InformationModal
@@ -119,7 +130,7 @@ export default function Login(): ReactNode {
                 </Tooltip>
                 <Typography>
                     Não tem uma conta?{" "}
-                    <Link href="/register" color="secondary" underline="hover">
+                    <Link href="/register" color="primary" underline="hover">
                         Cadastre-se
                     </Link>
                 </Typography>

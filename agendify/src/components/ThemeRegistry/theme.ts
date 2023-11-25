@@ -19,8 +19,10 @@ const cores = {
         warning: "#F00",
     },
     secondary: {
-        main: "#009A34",
-        light: "#F00",
+        main: "#B0B0B0",
+        light: "#E5E5E5",
+        dark: "#686868",
+        contrastText: "#FFFFFF",
     },
 };
 

@@ -1,6 +1,7 @@
 "use client";
 import CustomSelect from "@/components/CustomSelect";
 import InformationModal from "@/components/InformationModal";
+import { AuthContext } from "@/context/AuthContext";
 import useHttp from "@/hooks/useHttp";
 import {
     USER_ALREADY_REGISTERED,
@@ -22,7 +23,8 @@ import {
     useTheme,
 } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
-import { ReactNode, useEffect, useState } from "react";
+import { redirect } from "next/navigation";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { COMPANY } from "./RegisterUtils";
 
 export default function RegisterCompany({
@@ -33,9 +35,12 @@ export default function RegisterCompany({
     password: string;
 }) {
     const theme = useTheme();
+    const context = useContext(AuthContext);
+
+    const { setToken, setUserType, setName } = context;
 
     const [picture, setPicture] = useState<File>();
-    const [name, setName] = useState<string>("");
+    const [fullName, setFullName] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [phone, setPhone] = useState<string>("");
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -50,7 +55,7 @@ export default function RegisterCompany({
     const { loading, success, error, data, requestHttp } = useHttp();
 
     const unfilledInputs =
-        name === "" ||
+        fullName === "" ||
         selectedCategories.length === 0 ||
         selectedDays.length === 0 ||
         description === "" ||
@@ -65,8 +70,14 @@ export default function RegisterCompany({
     const userAlreadyRegistered = success && data === USER_ALREADY_REGISTERED;
 
     useEffect(() => {
-        if (success && !userAlreadyRegistered) location.replace("/");
-    }, [success, userAlreadyRegistered]);
+        if (success && !userAlreadyRegistered) {
+            const { token, type, name } = data;
+            setToken(token);
+            setUserType(type);
+            setName(name);
+            redirect("/");
+        }
+    }, [success, data, userAlreadyRegistered, setName, setToken, setUserType]);
 
     const renderError = (): ReactNode => (
         <InformationModal
@@ -160,7 +171,7 @@ export default function RegisterCompany({
                             <TextField
                                 sx={{ width: "100%" }}
                                 onChange={(event) =>
-                                    setName(event.target.value)
+                                    setFullName(event.target.value)
                                 }
                             />
                         </Grid>
@@ -299,7 +310,7 @@ export default function RegisterCompany({
                                                 type: COMPANY,
                                                 email,
                                                 password,
-                                                name,
+                                                name: fullName,
                                                 description,
                                                 phone,
                                                 categority:
