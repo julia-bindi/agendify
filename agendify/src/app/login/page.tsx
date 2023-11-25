@@ -14,9 +14,9 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
-export default function Login() {
+export default function Login(): ReactNode {
     const theme = useTheme();
 
     const [email, setEmail] = useState<string>("");
@@ -24,14 +24,14 @@ export default function Login() {
 
     const { loading, success, error, data, requestHttp } = useHttp();
 
-    const filledInputs = !(email === "" || password === "");
+    const unfilledInputs = email === "" || password === "";
     const userNotFound = success && data === USER_NOT_FOUND;
 
     useEffect(() => {
         if (success && !userNotFound) location.replace("/");
     }, [success, userNotFound]);
 
-    const renderUserNotFound = () => (
+    const renderUserNotFound = (): ReactNode => (
         <InformationModal
             icon={<ReportProblemOutlined fontSize="medium" />}
             text="Usuário não encontrado!"
@@ -39,7 +39,7 @@ export default function Login() {
         />
     );
 
-    const renderError = () => (
+    const renderError = (): ReactNode => (
         <InformationModal
             icon={<CancelOutlined fontSize="medium" />}
             text="Algo deu errado, tente novamente!"
@@ -96,9 +96,8 @@ export default function Login() {
                 </Box>
                 <Tooltip
                     title={
-                        filledInputs
-                            ? ""
-                            : "Necessário preencher os campos de e-mail e senha."
+                        unfilledInputs &&
+                        "Necessário preencher os campos de e-mail e senha."
                     }
                     placement="top"
                 >
@@ -106,7 +105,7 @@ export default function Login() {
                         <LoadingButton
                             variant="contained"
                             loading={loading}
-                            disabled={!filledInputs}
+                            disabled={unfilledInputs}
                             onClick={() =>
                                 requestHttp(LOGIN_REQUEST, {
                                     email,

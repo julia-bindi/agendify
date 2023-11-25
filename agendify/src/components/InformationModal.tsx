@@ -1,15 +1,15 @@
 import { Box, Modal, Typography, useTheme } from "@mui/material";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 export default function InformationModal({
     icon,
     text,
     backgroundColor,
 }: {
-    icon: React.ReactNode;
+    icon: ReactNode;
     text: string;
     backgroundColor: string;
-}) {
+}): ReactNode {
     const theme = useTheme();
 
     const [open, setOpen] = useState<boolean>(true);
