@@ -4,7 +4,7 @@ import InformationModal from "@/components/InformationModal";
 import useHttp from "@/hooks/useHttp";
 import {
     USER_ALREADY_REGISTERED,
-    categories,
+    category,
     weekDays,
 } from "@/utils/constants";
 import { REGISTER_REQUEST } from "@/utils/requests";
@@ -38,7 +38,7 @@ export default function RegisterCompany({
     const [name, setName] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [phone, setPhone] = useState<string>("");
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
     const [selectedDays, setSelectedDays] = useState<string[]>([]);
     const [startTime, setStartTime] = useState<string>("");
     const [endTime, setEndTime] = useState<string>("");
@@ -46,12 +46,13 @@ export default function RegisterCompany({
     const [number, setNumber] = useState<string>("");
     const [neighborhood, setNeighborhood] = useState<string>("");
     const [state, setState] = useState<string>("");
+    const [city, setCity] = useState<string>("");
 
     const { loading, success, error, data, requestHttp } = useHttp();
 
     const unfilledInputs =
         name === "" ||
-        selectedCategories.length === 0 ||
+        selectedCategory.length === 0 ||
         selectedDays.length === 0 ||
         description === "" ||
         phone === "" ||
@@ -60,7 +61,8 @@ export default function RegisterCompany({
         street === "" ||
         number === "" ||
         neighborhood === "" ||
-        state === "";
+        state === "" ||
+        city === "";
 
     const userAlreadyRegistered = success && data === USER_ALREADY_REGISTERED;
 
@@ -125,7 +127,7 @@ export default function RegisterCompany({
                 </Typography>
                 <Grid
                     container
-                    spacing={2}
+                    spacing={1}
                     sx={{
                         width: 640,
                         marginTop: "20px",
@@ -190,9 +192,9 @@ export default function RegisterCompany({
                         <Grid item xs={6}>
                             <Typography>Categorias *</Typography>
                             <CustomSelect
-                                options={categories}
-                                onChange={(categories: string[]) =>
-                                    setSelectedCategories(categories)
+                                options={category}
+                                onChange={(category: string[]) =>
+                                    setSelectedCategory(category)
                                 }
                             />
                         </Grid>
@@ -249,13 +251,22 @@ export default function RegisterCompany({
                                     placeholder="Nº"
                                 />
                             </Grid>
-                            <Grid item xs={7}>
+                            <Grid item xs={5}>
                                 <TextField
                                     sx={{ width: "100%" }}
                                     onChange={(event) =>
                                         setNeighborhood(event.target.value)
                                     }
                                     placeholder="Bairro"
+                                />
+                            </Grid>
+                            <Grid item xs={4}>
+                                <TextField
+                                    sx={{ width: "100%" }}
+                                    onChange={(event) =>
+                                        setCity(event.target.value)
+                                    }
+                                    placeholder="Cidade"
                                 />
                             </Grid>
                             <Grid item xs={3}>
@@ -303,13 +314,14 @@ export default function RegisterCompany({
                                                 description,
                                                 phone,
                                                 categority:
-                                                    selectedCategories[0],
+                                                    selectedCategory[0],
                                                 workDays: selectedDays,
                                                 startTime,
                                                 endTime,
                                                 street,
                                                 homeNumber: number,
                                                 neighborhood,
+                                                city,
                                                 state,
                                             })
                                         }

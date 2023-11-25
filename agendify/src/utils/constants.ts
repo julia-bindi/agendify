@@ -1,7 +1,7 @@
 export const USER_NOT_FOUND = "user-not-found";
 export const USER_ALREADY_REGISTERED = "user-already-registered";
 
-export const categories = [
+export const category = [
     "Corte",
     "Hotel",
     "Maquiagem",
@@ -25,10 +25,10 @@ export const dummyStores = [
     {
         image: "/cabeleleila_leila.png",
         name: "Cabeleleila Leila",
-        categories: ["Corte", "Pintura", "Maquiagem"],
+        category: ["Corte", "Pintura", "Maquiagem"],
         description:
             "Venha se renovar conosco! Valores competitivos e resultados indiscutíveis!",
-        days: [
+        workDays: [
             "Segunda-Feira",
             "Terça-Feira",
             "Quarta-Feira",
@@ -36,17 +36,21 @@ export const dummyStores = [
             "Sexta-Feira",
             "Sábado",
         ],
-        openingTime: "08:00",
-        closingTime: "17:00",
-        address: "Rua da Imprensa, 137, Monte Castelo, Belo Horizonte, MG",
+        startTime: "08:00",
+        endTime: "17:00",
+        street: 'Rua da Imprensa',
+        homeNumber: '137',
+        neighborhood: 'Monte Castelo',
+        state: 'MG',
+        city: "Belo Horizonte",
     },
     {
         image: "/cabeleleila_leila.png",
         name: "Cabeleleila Leila",
-        categories: ["Corte", "Pintura", "Maquiagem"],
+        category: ["Corte", "Pintura", "Maquiagem"],
         description:
             "Venha se renovar conosco! Valores competitivos e resultados indiscutíveis!",
-        days: [
+        workDays: [
             "Segunda-Feira",
             "Terça-Feira",
             "Quarta-Feira",
@@ -54,17 +58,21 @@ export const dummyStores = [
             "Sexta-Feira",
             "Sábado",
         ],
-        openingTime: "08:00",
-        closingTime: "17:00",
-        address: "Rua da Imprensa, 137, Monte Castelo, Belo Horizonte, MG",
+        startTime: "08:00",
+        endTime: "17:00",
+        street: 'Rua da Imprensa',
+        homeNumber: '137',
+        neighborhood: 'Monte Castelo',
+        state: 'MG',
+        city: "Belo Horizonte",
     },
     {
         image: "/cabeleleila_leila.png",
         name: "Cabeleleila Leila",
-        categories: ["Corte", "Pintura", "Maquiagem"],
+        category: ["Corte", "Pintura", "Maquiagem"],
         description:
             "Venha se renovar conosco! Valores competitivos e resultados indiscutíveis!",
-        days: [
+        workDays: [
             "Segunda-Feira",
             "Terça-Feira",
             "Quarta-Feira",
@@ -72,17 +80,21 @@ export const dummyStores = [
             "Sexta-Feira",
             "Sábado",
         ],
-        openingTime: "08:00",
-        closingTime: "17:00",
-        address: "Rua da Imprensa, 137, Monte Castelo, Belo Horizonte, MG",
+        startTime: "08:00",
+        endTime: "17:00",
+        street: 'Rua da Imprensa',
+        homeNumber: '137',
+        neighborhood: 'Monte Castelo',
+        state: 'MG',
+        city: "Belo Horizonte",
     },
     {
         image: "/cabeleleila_leila.png",
         name: "Cabeleleila Leila",
-        categories: ["Corte", "Pintura", "Maquiagem"],
+        category: ["Corte", "Pintura", "Maquiagem"],
         description:
             "Venha se renovar conosco! Valores competitivos e resultados indiscutíveis!",
-        days: [
+        workDays: [
             "Segunda-Feira",
             "Terça-Feira",
             "Quarta-Feira",
@@ -90,17 +102,21 @@ export const dummyStores = [
             "Sexta-Feira",
             "Sábado",
         ],
-        openingTime: "08:00",
-        closingTime: "17:00",
-        address: "Rua da Imprensa, 137, Monte Castelo, Belo Horizonte, MG",
+        startTime: "08:00",
+        endTime: "17:00",
+        street: 'Rua da Imprensa',
+        homeNumber: '137',
+        neighborhood: 'Monte Castelo',
+        state: 'MG',
+        city: "Belo Horizonte",
     },
     {
         image: "/cabeleleila_leila.png",
         name: "Cabeleleila Leila",
-        categories: ["Corte", "Pintura", "Maquiagem"],
+        category: ["Corte", "Pintura", "Maquiagem"],
         description:
             "Venha se renovar conosco! Valores competitivos e resultados indiscutíveis!",
-        days: [
+        workDays: [
             "Segunda-Feira",
             "Terça-Feira",
             "Quarta-Feira",
@@ -108,17 +124,21 @@ export const dummyStores = [
             "Sexta-Feira",
             "Sábado",
         ],
-        openingTime: "08:00",
-        closingTime: "17:00",
-        address: "Rua da Imprensa, 137, Monte Castelo, Belo Horizonte, MG",
+        startTime: "08:00",
+        endTime: "17:00",
+        street: 'Rua da Imprensa',
+        homeNumber: '137',
+        neighborhood: 'Monte Castelo',
+        state: 'MG',
+        city: "Belo Horizonte",
     },
     {
         image: "/cabeleleila_leila.png",
         name: "Cabeleleila Leila",
-        categories: ["Corte", "Pintura", "Maquiagem"],
+        category: ["Corte", "Pintura", "Maquiagem"],
         description:
             "Venha se renovar conosco! Valores competitivos e resultados indiscutíveis!",
-        days: [
+        workDays: [
             "Segunda-Feira",
             "Terça-Feira",
             "Quarta-Feira",
@@ -126,8 +146,12 @@ export const dummyStores = [
             "Sexta-Feira",
             "Sábado",
         ],
-        openingTime: "08:00",
-        closingTime: "17:00",
-        address: "Rua da Imprensa, 137, Monte Castelo, Belo Horizonte, MG",
+        startTime: "08:00",
+        endTime: "17:00",
+        street: 'Rua da Imprensa',
+        homeNumber: '137',
+        neighborhood: 'Monte Castelo',
+        state: 'MG',
+        city: "Belo Horizonte",
     },
 ];

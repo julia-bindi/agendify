@@ -4,23 +4,31 @@ import Image from "next/image";
 type StoreCardProps = {
     image: string,
     name: string,
-    categories: string[],
+    category: string[],
     description: string,
-    days: string[],
-    openingTime: string,
-    closingTime: string,
-    address: string
+    workDays: string[],
+    startTime: string,
+    endTime: string,
+    street: string,
+    homeNumber: string,
+    neighborhood: string,
+    state: string,
+    city: string,
 };
 
 export default function StoreCard({
     image,
     name,
-    categories,
+    category,
     description,
-    days,
-    openingTime,
-    closingTime,
-    address
+    workDays,
+    startTime,
+    endTime,
+    street,
+    homeNumber,
+    neighborhood,
+    state,
+    city,
 }: StoreCardProps) {
     return (
         <Box
@@ -41,10 +49,10 @@ export default function StoreCard({
                 }}
             >
                 <Typography>{name}</Typography>
-                <Typography>{categories.join(', ')}</Typography>
+                <Typography>{category.join(', ')}</Typography>
                 <Typography>{description}</Typography>
-                <Typography>{days.join(', ') + " " + openingTime + " às " + closingTime}</Typography>
-                <Typography>{address}</Typography>
+                <Typography>{workDays.join(', ') + " " + startTime + " às " + endTime}</Typography>
+                <Typography>{[street, homeNumber, neighborhood, city, state].join(', ')}</Typography>
             </Box>
         </Box>
     );

@@ -1,7 +1,7 @@
 "use client";
 import CustomSelect from "@/components/CustomSelect";
 import StoreCard from "@/components/StoreCard";
-import { categories, dummyStores } from "@/utils/constants";
+import { category, dummyStores } from "@/utils/constants";
 import { Box, Grid, TextField, Typography, useTheme } from "@mui/material";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import { useState } from "react";
@@ -59,7 +59,7 @@ export default function Login() {
                         <Typography sx={{ alignSelf: "flex-start" }}>
                             Categorias
                         </Typography>
-                        <CustomSelect options={categories} />
+                        <CustomSelect options={category} />
                     </Box>
                     <Box sx={{ width: "100%" }}>
                         <Typography sx={{ alignSelf: "flex-start" }}>
