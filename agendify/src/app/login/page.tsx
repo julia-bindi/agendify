@@ -31,19 +31,19 @@ export default function Login(): ReactNode {
         if (success && !userNotFound) location.replace("/");
     }, [success, userNotFound]);
 
-    const renderUserNotFound = (): ReactNode => (
-        <InformationModal
-            icon={<ReportProblemOutlined fontSize="medium" />}
-            text="Usuário não encontrado!"
-            backgroundColor={theme.palette.primary.main}
-        />
-    );
-
     const renderError = (): ReactNode => (
         <InformationModal
             icon={<CancelOutlined fontSize="medium" />}
             text="Algo deu errado, tente novamente!"
             backgroundColor={theme.palette.error.main}
+        />
+    );
+
+    const renderUserNotFound = (): ReactNode => (
+        <InformationModal
+            icon={<ReportProblemOutlined fontSize="medium" />}
+            text="Usuário não encontrado!"
+            backgroundColor={theme.palette.primary.main}
         />
     );
 

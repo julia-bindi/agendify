@@ -1,4 +1,5 @@
 export const USER_NOT_FOUND = "user-not-found";
+export const USER_ALREADY_REGISTERED = "user-already-registered";
 
 export const categories = [
     "Corte",

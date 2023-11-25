@@ -70,10 +70,25 @@ const theme = createTheme({
                 },
             },
         },
+        MuiInputBase: {
+            styleOverrides: {
+                multiline: {
+                    height: 80,
+                },
+                root: {
+                    "--TextField-brandBorderColor": cores.primary.main,
+                    "--TextField-brandBorderHoverColor": cores.primary.main,
+                    "--TextField-brandBorderFocusedColor": cores.primary.main,
+                },
+            },
+        },
         MuiOutlinedInput: {
             styleOverrides: {
                 notchedOutline: {
                     borderColor: "var(--TextField-brandBorderColor)",
+                },
+                multiline: {
+                    height: "100%",
                 },
                 root: {
                     height: 32,
