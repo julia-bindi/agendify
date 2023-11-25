@@ -34,25 +34,31 @@ export default function StoreCard({
         <Box
             sx={{
                 display: 'flex',
+                gap: '10px',
             }}
         >
             <Image
               src={image}
               alt={name}
-              width={200}
-              height={46}
+              width={144}
+              height={144}
+              style={{
+                borderRadius: '8px'
+              }}
               priority
             />
             <Box
                 sx={{
-
+                    display: 'flex',
+                    flexFlow: 'column',
+                    gap: '6px'
                 }}
             >
-                <Typography>{name}</Typography>
-                <Typography>{category.join(', ')}</Typography>
-                <Typography>{description}</Typography>
-                <Typography>{workDays.join(', ') + " " + startTime + " às " + endTime}</Typography>
-                <Typography>{[street, homeNumber, neighborhood, city, state].join(', ')}</Typography>
+                <Typography sx={{fontSize: 1*24}}>{name}</Typography>
+                <Typography sx={{fontSize: 1*16}}>{category.join(', ')}</Typography>
+                <Typography sx={{fontSize: 1*14}}>{description}</Typography>
+                <Typography sx={{fontSize: 1*14}}>{workDays.join(', ') + " - " + startTime + " às " + endTime}</Typography>
+                <Typography sx={{fontSize: 1*14}}>{[street, homeNumber, neighborhood, city, state].join(', ')}</Typography>
             </Box>
         </Box>
     );
