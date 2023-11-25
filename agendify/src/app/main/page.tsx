@@ -7,10 +7,13 @@ import {
     TextField
 } from "@mui/material";
 import { 
-    categories
+    categories,
+    dummyStores
  } from "@/utils/constants";
 import { useState } from "react";
 import CustomSelect from "@/components/CustomSelect";
+import StoreCard from "@/components/StoreCard";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 
 export default function Login() {
 
@@ -26,7 +29,7 @@ export default function Login() {
             sx={{
                 width: '100%',
                 position: 'fixed',
-                height: '-webkit-fill-available',
+                height: 'calc(100% - 46px)',
             }}
         >
             <Grid container justifyContent={"center"}
@@ -115,13 +118,18 @@ export default function Login() {
                         borderRadius: 10,
                         borderColor: theme.palette.primary.main,
                         margin: '20px',
+                        overflow: 'auto',
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
                         width: "fit-content",
                     }}
                 >
-                    dummy
+                    <OverlayScrollbarsComponent>
+                        {dummyStores.map((store, i) => (
+                            <StoreCard key={store.name + i} {...store}/>
+                        ))}
+                    </OverlayScrollbarsComponent>
                 </Grid>
             </Grid>
         </Box>
