@@ -1,6 +1,7 @@
 "use client";
 import InformationModal from "@/components/InformationModal";
 import { AuthContext } from "@/context/AuthContext";
+import { RegisterContext } from "@/context/RegisterContext";
 import useHttp from "@/hooks/useHttp";
 import { USER_ALREADY_REGISTERED } from "@/utils/constants";
 import { REGISTER_REQUEST } from "@/utils/requests";
@@ -19,19 +20,15 @@ import {
 import { MuiTelInput } from "mui-tel-input";
 import { redirect } from "next/navigation";
 import { ReactNode, useContext, useEffect, useState } from "react";
-import { CLIENT } from "./RegisterUtils";
+import { CLIENT } from "../utils";
 
-export default function RegisterClient({
-    email,
-    password,
-}: {
-    email: string;
-    password: string;
-}) {
+export default function RegisterClient() {
     const theme = useTheme();
-    const context = useContext(AuthContext);
+    const authContext = useContext(AuthContext);
+    const registerContext = useContext(RegisterContext);
 
-    const { setToken, setUserType, setName } = context;
+    const { setToken, setUserType, setName } = authContext;
+    const { email, password } = registerContext;
 
     const [photo, setPhoto] = useState<File>();
     const [fullName, setFullName] = useState("");

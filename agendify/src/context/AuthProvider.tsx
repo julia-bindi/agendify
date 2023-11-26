@@ -4,7 +4,7 @@ import { AuthContext } from "./AuthContext";
 
 const ID = "AUTH";
 
-const INITIAL_STATE: AuthValues = {
+const INITIAL_STATE: AuthType = {
     token: "",
     userType: "",
     name: "",
@@ -45,7 +45,7 @@ export default function AuthProvider({
     );
 }
 
-const reducer = (state: AuthValues, action: Action) => {
+const reducer = (state: AuthType, action: Action) => {
     const { type, value } = action;
     switch (type) {
         case SET_TOKEN:

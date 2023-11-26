@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import AuthProvider from "@/context/AuthProvider";
+import RegisterProvider from "@/context/RegisterProvider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import ThemeRegistry from "../components/ThemeRegistry/ThemeRegistry";
@@ -21,12 +22,14 @@ export default function RootLayout({
         <html lang="en">
             <body className={inter.className}>
                 <AuthProvider>
-                    <ThemeRegistry>
-                        <>
-                            <Header />
-                            {children}
-                        </>
-                    </ThemeRegistry>
+                    <RegisterProvider>
+                        <ThemeRegistry>
+                            <>
+                                <Header />
+                                {children}
+                            </>
+                        </ThemeRegistry>
+                    </RegisterProvider>
                 </AuthProvider>
             </body>
         </html>

@@ -2,6 +2,7 @@
 import CustomSelect from "@/components/CustomSelect";
 import InformationModal from "@/components/InformationModal";
 import { AuthContext } from "@/context/AuthContext";
+import { RegisterContext } from "@/context/RegisterContext";
 import useHttp from "@/hooks/useHttp";
 import { USER_ALREADY_REGISTERED, category, weekDays } from "@/utils/constants";
 import { REGISTER_REQUEST } from "@/utils/requests";
@@ -21,19 +22,15 @@ import {
 import { MuiTelInput } from "mui-tel-input";
 import { redirect } from "next/navigation";
 import { ReactNode, useContext, useEffect, useState } from "react";
-import { COMPANY } from "./RegisterUtils";
+import { COMPANY } from "../utils";
 
-export default function RegisterCompany({
-    email,
-    password,
-}: {
-    email: string;
-    password: string;
-}) {
+export default function RegisterCompany() {
     const theme = useTheme();
-    const context = useContext(AuthContext);
+    const authContext = useContext(AuthContext);
+    const registerContext = useContext(RegisterContext);
 
-    const { setToken, setUserType, setName } = context;
+    const { setToken, setUserType, setName } = authContext;
+    const { email, password } = registerContext;
 
     const [picture, setPicture] = useState<File>();
     const [fullName, setFullName] = useState<string>("");

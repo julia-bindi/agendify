@@ -1,5 +1,5 @@
-export const CLIENT = "client";
-export const COMPANY = "company";
+export const CLIENT = "CLIENT";
+export const COMPANY = "COMPANY";
 
 export const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
