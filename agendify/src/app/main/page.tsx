@@ -1,9 +1,9 @@
 "use client";
 import CustomSelect from "@/components/CustomSelect";
-import StoreCard from "@/components/StoreCard";
+import StoreCard from "@/storeCard.tsx/StoreCard";
+import styles from "./index.module.scss"
 import { category, dummyStores } from "@/utils/constants";
-import { Box, Grid, TextField, Typography, useTheme } from "@mui/material";
-import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
+import { Box, TextField, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import 'overlayscrollbars/overlayscrollbars.css';
 
@@ -21,38 +21,8 @@ export default function Login() {
     ];
 
     return (
-        <Box
-            sx={{
-                width: "100%",
-                position: "fixed",
-                height: "85%",
-            }}
-        >
-            <Grid
-                container
-                justifyContent={"center"}
-                sx={{
-                    width: "100%",
-                    height: "100%",
-                }}
-            >
-                <Grid
-                    item
-                    xs={3}
-                    sx={{
-                        border: 1,
-                        borderRadius: 6,
-                        borderColor: theme.palette.primary.main,
-                        margin: "20px",
-                        padding: "30px",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "5px",
-                        alignItems: "center",
-                        width: "fit-content",
-                        justifyContent: "space-between",
-                    }}
-                >
+        <div className={styles.main_container}>
+                <div style={{borderColor: `${theme.palette.primary.main}`}} className={`${styles.main_item} ${styles.main_form}`}>
                     <Typography sx={{ alignSelf: "flex-start" }}>
                         Filtros
                     </Typography>
@@ -131,38 +101,15 @@ export default function Login() {
                         </Typography>
                         <CustomSelect options={cities} />
                     </Box>
-                </Grid>
-                <Grid
-                    item
-                    xs={8}
-                    sx={{
-                        border: 1,
-                        borderRadius: 6,
-                        borderColor: theme.palette.primary.main,
-                        margin: "20px",
-                        padding: "25px",
-                        overflowY: "scrollbar",
-                        width: "fit-content",
-                    }}
-                >
-                    <OverlayScrollbarsComponent
-                        defer
-                    >
-                        <Box
-                            sx={{
-                                display: "flex",
-                                gap: "20px",
-                                flexDirection: "column",
-                                alignItems: "start",
-                            }}
-                        >
-                            {dummyStores.map((store, i) => (
-                                <StoreCard key={store.name + i} {...store} />
-                            ))}
-                        </Box>
-                    </OverlayScrollbarsComponent>
-                </Grid>
-            </Grid>
-        </Box>
+                </div>
+                <div  style={{borderColor: `${theme.palette.primary.main}`}} className={`${styles.main_item} ${styles.main_list}`}>
+                    <div className={styles.main_scroll}>
+                        {dummyStores.map((store, i) => (
+                            <StoreCard key={store.name + i} {...store} />
+                        ))} 
+
+                    </div>
+                </div>
+            </div>
     );
 }

@@ -25,7 +25,7 @@ export default function Accessibility(): ReactNode {
                 width: 50,
                 height: 50,
                 borderRadius: "50%",
-                position: "absolute",
+                position: "fixed",
                 top: "95%",
                 left: "95%",
                 transform: "translate(-95%, -95%)",

@@ -33,7 +33,8 @@ export default function Header(): ReactNode {
                 alignItems: "center",
                 justifyContent: "space-between",
                 padding: "16px 40px 24px 40px",
-                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                background: theme.palette.primary.header,
+                boxShadow: theme.palette.primary.box_header,
             }}
         >
             <Box
@@ -43,7 +44,7 @@ export default function Header(): ReactNode {
                     alignItems: "center",
                     justifyContent: "space-between",
                     gap: "8px",
-                    marginTop: inHome ? "10px" : "0px",
+                    marginTop: inHome ? "10px" : "0px", 
                 }}
             >
                 <Image
@@ -60,11 +61,10 @@ export default function Header(): ReactNode {
                         style={{
                             width: "100%",
                             height: 2,
-                            backgroundColor: theme.palette.primary.main,
                         }}
                     />
                 )}
-            </Box>
+            </Box>  
             {token && (
                 <Box
                     sx={{
@@ -97,7 +97,6 @@ export default function Header(): ReactNode {
                                 style={{
                                     width: "100%",
                                     height: 2,
-                                    backgroundColor: theme.palette.primary.main,
                                 }}
                             />
                         )}

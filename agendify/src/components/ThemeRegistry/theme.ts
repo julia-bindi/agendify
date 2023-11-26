@@ -10,15 +10,17 @@ const roboto = Roboto({
 
 const coresDarkMode = {
     background: {
-        default: "#0D405E",
-        paper: "#0D405E",
+        default: "#0d1117",
+        paper: "#0d1117",
     },
     primary: {
-        main: "#1FCA47",
-        light: "#5ED46B",
-        dark: "#00B006",
+        main: "#68D6FF",
+        light: "#7d8a9e",
+        header: "#010409",
+        dark: "#7d8a9e",
         contrastText: "#FFFFFF",
-        background: "#1FCA470F",
+        background: "#7d8a9e",
+        box_header: "0px 4px 4px 0px rgba(255, 255, 255, 0.05)"
     },
 };
 
@@ -26,9 +28,11 @@ const coresLightMode = {
     primary: {
         main: "#00AEEF",
         light: "#64CFF7",
+        header: "#fff",
         dark: "#0599D1",
         contrastText: "#FFFFFF",
         background: "#00AEEF0F",
+        box_header: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
     },
 };
 
