@@ -1,5 +1,5 @@
 import { Button, Box, Typography } from '@mui/material';
-import Image from "next/image";
+import styles from "./index.module.scss"
 
 type StoreCardProps = {
     image: string,
@@ -37,15 +37,10 @@ export default function StoreCard({
                 gap: '10px',
             }}
         >
-            <Image
+            <img
               src={image}
               alt={name}
-              width={144}
-              height={144}
-              style={{
-                borderRadius: '8px'
-              }}
-              priority
+              className={styles.store_card_img}
             />
             <Box
                 sx={{
