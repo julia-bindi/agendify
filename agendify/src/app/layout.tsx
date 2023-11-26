@@ -1,4 +1,6 @@
+import Accessibility from "@/components/Accessibility";
 import Header from "@/components/Header";
+import AccessibilityProvider from "@/context/AccessibilityProvider";
 import AuthProvider from "@/context/AuthProvider";
 import RegisterProvider from "@/context/RegisterProvider";
 import type { Metadata } from "next";
@@ -21,16 +23,19 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
-                <AuthProvider>
-                    <RegisterProvider>
-                        <ThemeRegistry>
-                            <>
-                                <Header />
-                                {children}
-                            </>
-                        </ThemeRegistry>
-                    </RegisterProvider>
-                </AuthProvider>
+                <AccessibilityProvider>
+                    <AuthProvider>
+                        <RegisterProvider>
+                            <ThemeRegistry>
+                                <>
+                                    <Header />
+                                    {children}
+                                    <Accessibility />
+                                </>
+                            </ThemeRegistry>
+                        </RegisterProvider>
+                    </AuthProvider>
+                </AccessibilityProvider>
             </body>
         </html>
     );

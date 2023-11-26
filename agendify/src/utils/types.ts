@@ -25,3 +25,11 @@ type Register = Pick<RegisterType, "email" | "password"> & {
     setEmail: Function;
     setPassword: Function;
 };
+
+type AccessibilityType = {
+    mode: "light" | "dark";
+};
+
+type Accessibility = Pick<AccessibilityType, "mode"> & {
+    setMode: Function;
+};

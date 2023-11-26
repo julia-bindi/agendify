@@ -14,7 +14,7 @@ export default function Header(): ReactNode {
     const { token, name, clear } = context;
 
     const showLoginButton =
-        !token && pathname !== "/login" && pathname !== "/register";
+        !token && pathname !== "/login" && !pathname.includes("/register");
     const inHome = pathname === "/";
     const inSchedules = pathname === "/schedules";
 
