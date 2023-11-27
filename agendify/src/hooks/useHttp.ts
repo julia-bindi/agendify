@@ -9,7 +9,8 @@ export default function useHttp() {
 
     const requestHttp = (
         request: { url: string; method: string },
-        body: object
+        body: object,
+        token?: string
     ) => {
         const { url, method } = request;
         setLoading(true);
@@ -17,11 +18,13 @@ export default function useHttp() {
         setError(false);
         setData(null);
 
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json; charset=UTF-8")
+        token && headers.append("Authorization", "Basic " + token)
+
         fetch(`https://agendify.onrender.com/api/v1/${url}`, {
             method: method,
-            headers: {
-                "Content-Type": "application/json; charset=UTF-8",
-            },
+            headers: headers,
             body: JSON.stringify(body),
         })
             .then((response) => response.json())
