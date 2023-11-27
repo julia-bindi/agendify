@@ -70,7 +70,7 @@ export default function RegisterCompany() {
             setToken(token);
             setUserType(type);
             setName(name);
-            redirect("/");
+            redirect("/main");
         }
     }, [success, data, userAlreadyRegistered, setName, setToken, setUserType]);
 

@@ -1,16 +1,16 @@
 "use client";
+import { AuthContext } from "@/context/AuthContext";
 import React from "react";
+import { COMPANY } from "../register/utils";
 import ClientMain from "./ClientMain";
 import CompanyMain from "./CompanyMain";
-import { AuthContext } from "@/context/AuthContext";
 
 export default function Login() {
-
     const context = React.useContext(AuthContext);
 
-    return (
-        context.token || context.userType === "CLIENT" ?
-        <ClientMain/> :
-        <CompanyMain/> 
-    );
+    const { token, userType } = context;
+
+    if (token && userType === COMPANY) return <CompanyMain />;
+
+    return <ClientMain />;
 }

@@ -1,17 +1,19 @@
-import CustomMultipleSelect from "@/components/CustomMultipleSelect";
-import StoreCard from "@/storeCard.tsx/StoreCard";
-import styles from "./index.module.scss"
-import { dummySchedules } from "@/utils/constants";
-import { Box, Button, TextField, Tooltip, Typography, useTheme } from "@mui/material";
-import { ReactNode, useState } from "react";
-import { AccessibilityContext } from "@/context/AccessibilityContext";
-import React from "react";
-import ServiceCard from "@/components/ServiceCard";
-import ScheduleCard from "@/components/ScheduleCard";
 import ConfirmationModal from "@/components/ConfirmationModal";
+import ScheduleCard from "@/components/ScheduleCard";
+import { AccessibilityContext } from "@/context/AccessibilityContext";
+import { dummySchedules } from "@/utils/constants";
+import {
+    Box,
+    Button,
+    TextField,
+    Tooltip,
+    Typography,
+    useTheme,
+} from "@mui/material";
+import React, { ReactNode, useState } from "react";
+import styles from "./index.module.scss";
 
 export default function CompanyMain() {
-
     const theme = useTheme();
     const context = React.useContext(AccessibilityContext);
 
@@ -21,27 +23,43 @@ export default function CompanyMain() {
     const [value, setValue] = useState("");
     const [cancelService, setCancelService] = useState<Service | null>(null);
 
-    const handleConfirm = (service:Service) => {
+    const handleConfirm = (service: Service) => {
         setCancelService(service);
-    }
+    };
 
     const renderConfirm = (): ReactNode => (
         <ConfirmationModal
             title={cancelService ? "Cancelar: " + cancelService.name : ""}
-            subtitle={cancelService ? cancelService.date + " - " + cancelService.time + "\nR$ " + cancelService.cost.toFixed(2) : ""}
+            subtitle={
+                cancelService
+                    ? cancelService.date +
+                      " - " +
+                      cancelService.time +
+                      "\nR$ " +
+                      cancelService.cost.toFixed(2)
+                    : ""
+            }
             onConfirm={() => {}}
             onClose={() => setCancelService(null)}
         />
     );
 
-    const enableConfirm = name && duration && value
+    const enableConfirm = name && duration && value;
 
-    return(
+    return (
         <>
             {cancelService && renderConfirm()}
             <div className={styles.main_container}>
-                <div style={{borderColor: `${theme.palette.primary.main}`}} className={`${styles.main_item} ${styles.main_form}`}>
-                    <Typography sx={{ alignSelf: "flex-start", fontSize: context.fontMultiplier*20 }}>
+                <div
+                    style={{ borderColor: `${theme.palette.primary.main}` }}
+                    className={`${styles.main_item} ${styles.main_form}`}
+                >
+                    <Typography
+                        sx={{
+                            alignSelf: "flex-start",
+                            fontSize: context.fontMultiplier * 20,
+                        }}
+                    >
                         Cadastros
                     </Typography>
                     <Box sx={{ width: "100%" }}>
@@ -62,7 +80,9 @@ export default function CompanyMain() {
                             multiline
                             rows={4}
                             size={"small"}
-                            onChange={(event) => setDescription(event.target.value)}
+                            onChange={(event) =>
+                                setDescription(event.target.value)
+                            }
                         />
                     </Box>
                     <Box sx={{ width: "100%" }}>
@@ -83,10 +103,8 @@ export default function CompanyMain() {
                             Valor *
                         </Typography>
                         <TextField
-                            onChange={(event) =>
-                                setValue(event.target.value)
-                            }
-                            sx={{width: '100%'}}
+                            onChange={(event) => setValue(event.target.value)}
+                            sx={{ width: "100%" }}
                             placeholder="00,00"
                             type="number"
                         />
@@ -98,26 +116,32 @@ export default function CompanyMain() {
                         }
                         placement="top"
                     >
-                        <span >
+                        <span>
                             <Button
-                                sx={{width: '100%'}}
+                                sx={{ width: "100%" }}
                                 variant="contained"
                                 disabled={!enableConfirm}
                             >
-                                Confirmar
+                                Cadastrar
                             </Button>
                         </span>
                     </Tooltip>
                 </div>
-                <div  style={{borderColor: `${theme.palette.primary.main}`}} className={`${styles.main_item} ${styles.main_list}`}>
+                <div
+                    style={{ borderColor: `${theme.palette.primary.main}` }}
+                    className={`${styles.main_item} ${styles.main_list}`}
+                >
                     <div className={styles.main_scroll}>
                         {dummySchedules.map((service, i) => (
-                            <ScheduleCard onDelete={handleConfirm} key={service.name + i} {...service} />
-                        ))} 
+                            <ScheduleCard
+                                onDelete={handleConfirm}
+                                key={service.name + i}
+                                {...service}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>
         </>
-    )
-
+    );
 }
