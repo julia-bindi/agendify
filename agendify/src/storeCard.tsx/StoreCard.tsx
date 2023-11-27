@@ -1,21 +1,11 @@
-import { Box, Typography } from "@mui/material";
-import styles from "./index.module.scss";
-
-type StoreCardProps = {
-    image: string;
-    name: string;
-    category: string[];
-    description: string;
-    workDays: string[];
-    startTime: string;
-    endTime: string;
-    street: string;
-    homeNumber: string;
-    neighborhood: string;
-    state: string;
-    city: string;
-    onClick?: () => {};
-};
+import {
+    Avatar,
+    ListItemAvatar,
+    ListItemButton,
+    ListItemText,
+    Typography,
+} from "@mui/material";
+import { useRouter } from "next/navigation";
 
 export default function StoreCard({
     image,
@@ -30,36 +20,53 @@ export default function StoreCard({
     neighborhood,
     state,
     city,
-    onClick,
 }: StoreCardProps) {
+    const router = useRouter();
+
     return (
-        <Box
-            sx={{
-                display: "flex",
-                gap: "10px",
+        <ListItemButton
+            divider
+            sx={{ gap: "16px" }}
+            onClick={() => {
+                router.push("/main/services");
             }}
-            onClick={onClick}
         >
-            <img src={image} alt={name} className={styles.store_card_img} />
-            <Box
-                sx={{
-                    display: "flex",
-                    flexFlow: "column",
-                    gap: "6px",
-                }}
-            >
-                <Typography sx={{ fontSize: 24 }}>{name}</Typography>
-                <Typography sx={{ fontSize: 16 }}>
-                    {category.join(", ")}
-                </Typography>
-                <Typography sx={{ fontSize: 14 }}>{description}</Typography>
-                <Typography sx={{ fontSize: 14 }}>
-                    {workDays.join(", ") + " - " + startTime + " às " + endTime}
-                </Typography>
-                <Typography sx={{ fontSize: 14 }}>
-                    {[street, homeNumber, neighborhood, city, state].join(", ")}
-                </Typography>
-            </Box>
-        </Box>
+            <ListItemAvatar>
+                <Avatar
+                    src={image}
+                    alt={name}
+                    variant="rounded"
+                    sx={{ width: 144, height: 144 }}
+                />
+            </ListItemAvatar>
+            <ListItemText
+                secondary={
+                    <>
+                        <Typography sx={{ fontSize: 24 }}>{name}</Typography>
+                        <Typography sx={{ fontSize: 16 }}>
+                            {category.join(", ")}
+                        </Typography>
+                        <Typography sx={{ fontSize: 14 }}>
+                            {description}
+                        </Typography>
+                        <Typography sx={{ fontSize: 14 }}>
+                            {workDays.join(", ")}
+                        </Typography>
+                        <Typography sx={{ fontSize: 14 }}>
+                            {startTime + " às " + endTime}
+                        </Typography>
+                        <Typography sx={{ fontSize: 14 }}>
+                            {[
+                                street,
+                                homeNumber,
+                                neighborhood,
+                                city,
+                                state,
+                            ].join(", ")}
+                        </Typography>
+                    </>
+                }
+            />
+        </ListItemButton>
     );
 }

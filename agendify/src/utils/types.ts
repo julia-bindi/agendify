@@ -44,3 +44,18 @@ type Service = {
     date: string;
     time: string;
 };
+
+type StoreCardProps = {
+    image: string;
+    name: string;
+    category: string[];
+    description: string;
+    workDays: string[];
+    startTime: string;
+    endTime: string;
+    street: string;
+    homeNumber: string;
+    neighborhood: string;
+    state: string;
+    city: string;
+};
