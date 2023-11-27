@@ -51,7 +51,7 @@ export default function Accessibility(): ReactNode {
     return (
         <SpeedDial
             ariaLabel="SpeedDial Accessibility"
-            sx={{ position: "absolute", bottom: 40, right: 40 }}
+            sx={{ position: "fixed", bottom: 40, right: 40 }}
             icon={
                 <AccessibilityNewOutlinedIcon
                     fontSize="large"
