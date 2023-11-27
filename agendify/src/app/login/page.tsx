@@ -15,11 +15,12 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { ReactNode, useContext, useEffect, useState } from "react";
 
 export default function Login(): ReactNode {
     const theme = useTheme();
+    const router = useRouter();
     const context = useContext(AuthContext);
 
     const { setToken, setUserType, setName } = context;
@@ -130,7 +131,11 @@ export default function Login(): ReactNode {
                 </Tooltip>
                 <Typography>
                     Não tem uma conta?{" "}
-                    <Link href="/register" color="primary" underline="hover">
+                    <Link
+                        color="primary"
+                        underline="hover"
+                        onClick={() => router.push("/register")}
+                    >
                         Cadastre-se
                     </Link>
                 </Typography>

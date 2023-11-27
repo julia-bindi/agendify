@@ -1,3 +1,4 @@
+import { DARK, LIGHT } from "@/utils/constants";
 import { outlinedInputClasses } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { Roboto } from "next/font/google";
@@ -8,47 +9,37 @@ const roboto = Roboto({
     display: "swap",
 });
 
-const coresDarkMode = {
+const backgroundDarkMode = {
     background: {
-        default: "#0d1117",
-        paper: "#0d1117",
-    },
-    primary: {
-        main: "#68D6FF",
-        light: "#7d8a9e",
-        header: "#010409",
-        dark: "#7d8a9e",
-        contrastText: "#FFFFFF",
-        background: "#7d8a9e",
-        box_header: "0px 4px 4px 0px rgba(255, 255, 255, 0.05)"
+        default: "#0D1117",
+        paper: "#0D1117",
     },
 };
 
-const coresLightMode = {
+const cores = {
     primary: {
         main: "#00AEEF",
         light: "#64CFF7",
-        header: "#fff",
         dark: "#0599D1",
         contrastText: "#FFFFFF",
         background: "#00AEEF0F",
-        box_header: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
+    },
+    secondary: {
+        main: "#A6A6A6",
+        light: "#C4C4C4",
+        dark: "#7C7C7C",
+        contrastText: "#FFFFFF",
     },
 };
 
-export const theme = (mode: "light" | "dark") => {
-    const cores = mode === "dark" ? coresDarkMode : coresLightMode;
+export const theme = (mode: typeof LIGHT | typeof DARK) => {
+    const background = mode === DARK ? backgroundDarkMode : {};
 
     return createTheme({
         palette: {
             mode: mode,
             ...cores,
-            secondary: {
-                main: "#A6A6A6",
-                light: "#C4C4C4",
-                dark: "#7C7C7C",
-                contrastText: "#FFFFFF",
-            },
+            ...background,
         },
         typography: {
             fontFamily: roboto.style.fontFamily,

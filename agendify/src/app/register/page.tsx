@@ -184,9 +184,9 @@ export default function RegisterDefault() {
                         <Typography>
                             Já tem uma conta?{" "}
                             <Link
-                                href="/login"
                                 color="primary"
                                 underline="hover"
+                                onClick={() => router.push("/login")}
                             >
                                 Entrar
                             </Link>

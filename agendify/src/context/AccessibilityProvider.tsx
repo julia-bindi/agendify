@@ -1,12 +1,13 @@
 "use client";
+import { LIGHT } from "@/utils/constants";
 import { useReducer } from "react";
 import { AccessibilityContext } from "./AccessibilityContext";
 
 const ID = "ACCESSIBILITY";
 
 const INITIAL_STATE: AccessibilityType = {
-    mode: "light",
-    fontMultiplier: 1
+    mode: LIGHT,
+    fontMultiplier: 1,
 };
 
 const SET_MODE = `SET_MODE_${ID}`;
@@ -25,7 +26,7 @@ export default function AccessibilityProvider({
     const context: Accessibility = {
         mode,
         setMode,
-        fontMultiplier
+        fontMultiplier,
     };
 
     return (

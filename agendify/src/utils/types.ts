@@ -36,10 +36,10 @@ type Accessibility = Pick<AccessibilityType, "mode" | "fontMultiplier"> & {
 };
 
 type Service = {
-    name: string,
-    cost: number,
-    duration: number,
-    description: string,
-    date: string,
-    time: string
+    name: string;
+    cost: number;
+    duration: number;
+    description: string;
+    date: string;
+    time: string;
 };

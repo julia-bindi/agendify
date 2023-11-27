@@ -2,13 +2,14 @@
 import { AccessibilityContext } from "@/context/AccessibilityContext";
 import { Box, Button, Container, Link, Typography } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function Home() {
-
+    const router = useRouter();
     const context = React.useContext(AccessibilityContext);
-    
-    return(
+
+    return (
         <Container
             disableGutters
             maxWidth={false}
@@ -32,29 +33,42 @@ export default function Home() {
                 priority
                 style={{ cursor: "pointer" }}
             />
-            <Typography sx={{fontSize: context.fontMultiplier*40}}>Marcar um serviço agora é fácil!</Typography>
-            <Box 
+            <Typography sx={{ fontSize: context.fontMultiplier * 40 }}>
+                Marcar um serviço agora é fácil!
+            </Typography>
+            <Box
                 sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
+                    display: "flex",
+                    flexDirection: "column",
                     alignItems: "center",
-                    rowGap: "10px"
+                    rowGap: "10px",
                 }}
             >
                 <Typography>Já possui uma conta?</Typography>
-                <Button variant="contained" href="/login">
+                <Button
+                    variant="contained"
+                    onClick={() => router.push("/login")}
+                >
                     Entrar
                 </Button>
             </Box>
             <Typography>
                 Não possui uma conta?{" "}
-                <Link href="/register" color="primary" underline="hover">
+                <Link
+                    color="primary"
+                    underline="hover"
+                    onClick={() => router.push("/register")}
+                >
                     Cadastre-se
                 </Link>
             </Typography>
             <Typography>
                 Está apenas olhando?{" "}
-                <Link href="/main" color="primary" underline="hover">
+                <Link
+                    color="primary"
+                    underline="hover"
+                    onClick={() => router.push("/main")}
+                >
                     Consultar serviços
                 </Link>
             </Typography>

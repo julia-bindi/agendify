@@ -1,5 +1,6 @@
 "use client";
 import { AccessibilityContext } from "@/context/AccessibilityContext";
+import { DARK, LIGHT } from "@/utils/constants";
 import AccessibilityNewOutlinedIcon from "@mui/icons-material/AccessibilityNewOutlined";
 import { IconButton, useTheme } from "@mui/material";
 import { ReactNode, useContext, useState } from "react";
@@ -10,10 +11,10 @@ export default function Accessibility(): ReactNode {
 
     const { setMode } = context;
 
-    const [mode, setModeState] = useState<"light" | "dark">("light");
+    const [mode, setModeState] = useState<typeof LIGHT | typeof DARK>(LIGHT);
 
     const handleClick = () => {
-        const newMode = mode === "light" ? "dark" : "light";
+        const newMode = mode === LIGHT ? DARK : LIGHT;
         setMode(newMode);
         setModeState(newMode);
     };
