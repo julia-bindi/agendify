@@ -9,8 +9,8 @@ export default function Login() {
     const context = React.useContext(AuthContext);
 
     return (
-        // context.token || context.userType === "CLIENT" ?
-        // <ClientMain/> :
+        context.token || context.userType === "CLIENT" ?
+        <ClientMain/> :
         <CompanyMain/> 
     );
 }
