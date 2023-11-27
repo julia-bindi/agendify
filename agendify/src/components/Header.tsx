@@ -15,8 +15,9 @@ export default function Header(): ReactNode {
 
     const showLoginButton =
         !token && pathname !== "/login" && !pathname.includes("/register");
-    const inHome = pathname === "/";
+    const inHome = pathname === "/main";
     const inSchedules = pathname === "/schedules";
+    const inRoot = pathname === "/";
 
     const handleLogout = () => {
         clear();
@@ -24,6 +25,7 @@ export default function Header(): ReactNode {
     };
 
     return (
+        !inRoot && 
         <Container
             disableGutters
             maxWidth={false}
@@ -54,13 +56,14 @@ export default function Header(): ReactNode {
                     height={40}
                     priority
                     style={{ cursor: "pointer" }}
-                    onClick={() => router.push("/")}
+                    onClick={() => router.push("/main")}
                 />
                 {inHome && (
                     <div
                         style={{
                             width: "100%",
                             height: 2,
+                            backgroundColor: theme.palette.primary.main
                         }}
                     />
                 )}
@@ -97,6 +100,7 @@ export default function Header(): ReactNode {
                                 style={{
                                     width: "100%",
                                     height: 2,
+                                    backgroundColor: theme.palette.primary.main
                                 }}
                             />
                         )}

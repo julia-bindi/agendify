@@ -1,3 +1,63 @@
+"use client";
+import { AccessibilityContext } from "@/context/AccessibilityContext";
+import { Box, Button, Container, Link, Typography } from "@mui/material";
+import Image from "next/image";
+import React from "react";
+
 export default function Home() {
-    return <></>;
+
+    const context = React.useContext(AccessibilityContext);
+    
+    return(
+        <Container
+            disableGutters
+            maxWidth={false}
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                width: "fit-content",
+                rowGap: "20px",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+            }}
+        >
+            <Image
+                src="/agendify_header.png"
+                alt="Agendify Logo"
+                width={704}
+                height={160}
+                priority
+                style={{ cursor: "pointer" }}
+            />
+            <Typography sx={{fontSize: context.fontMultiplier*40}}>Marcar um serviço agora é fácil!</Typography>
+            <Box 
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: "center",
+                    rowGap: "10px"
+                }}
+            >
+                <Typography>Já possui uma conta?</Typography>
+                <Button variant="contained" href="/login">
+                    Entrar
+                </Button>
+            </Box>
+            <Typography>
+                Não possui uma conta?{" "}
+                <Link href="/register" color="primary" underline="hover">
+                    Cadastre-se
+                </Link>
+            </Typography>
+            <Typography>
+                Está apenas olhando?{" "}
+                <Link href="/main" color="primary" underline="hover">
+                    Consultar serviços
+                </Link>
+            </Typography>
+        </Container>
+    );
 }

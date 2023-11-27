@@ -155,3 +155,56 @@ export const dummyStores = [
         city: "Belo Horizonte",
     },
 ];
+
+export const dummyServices = [
+    {
+        name: 'Corte Básico (M)',
+        cost: 30,
+        duration: 30,
+        description: 'Corte básico masculino'
+    },
+    {
+        name: 'Corte Básico (M)',
+        cost: 30,
+        duration: 30,
+        description: 'Corte básico masculino'
+    },
+    {
+        name: 'Corte Básico (M)',
+        cost: 30,
+        duration: 30,
+        description: 'Corte básico masculino'
+    },
+    {
+        name: 'Corte Básico (M)',
+        cost: 30,
+        duration: 30,
+        description: 'Corte básico masculino'
+    },
+    {
+        name: 'Corte Básico (M)',
+        cost: 30,
+        duration: 30,
+        description: 'Corte básico masculino'
+    },
+];
+
+export const dummySchedules = dummyServices.map(service => ({
+    ...service,
+    date: '19/10/2023',
+    time: '08:00'
+})) 
+
+export const dummyDates = [
+    "19/10/2023",
+    "19/10/2023",
+    "19/10/2023",
+    "19/10/2023",
+];
+
+export const dummyTimes = [
+    "08:00",
+    "08:30",
+    "09:00",
+    "09:30",
+]

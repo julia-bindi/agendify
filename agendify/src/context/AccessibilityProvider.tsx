@@ -6,6 +6,7 @@ const ID = "ACCESSIBILITY";
 
 const INITIAL_STATE: AccessibilityType = {
     mode: "light",
+    fontMultiplier: 1
 };
 
 const SET_MODE = `SET_MODE_${ID}`;
@@ -17,13 +18,14 @@ export default function AccessibilityProvider({
 }) {
     const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
-    const { mode } = state;
+    const { mode, fontMultiplier } = state;
 
     const setMode = (value: string) => dispatch({ type: SET_MODE, value });
 
     const context: Accessibility = {
         mode,
         setMode,
+        fontMultiplier
     };
 
     return (

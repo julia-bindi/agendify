@@ -1,4 +1,6 @@
+import { AccessibilityContext } from "@/context/AccessibilityContext";
 import { Box, Modal, Typography, useTheme } from "@mui/material";
+import React from "react";
 import { ReactNode, useState } from "react";
 
 export default function InformationModal({
@@ -11,6 +13,7 @@ export default function InformationModal({
     backgroundColor: string;
 }): ReactNode {
     const theme = useTheme();
+    const context = React.useContext(AccessibilityContext);
 
     const [open, setOpen] = useState<boolean>(true);
 
@@ -36,7 +39,7 @@ export default function InformationModal({
                 {icon}
                 <Typography
                     sx={{
-                        fontSize: 16,
+                        fontSize: context.fontMultiplier * 16,
                         fontWeight: 400,
                     }}
                 >

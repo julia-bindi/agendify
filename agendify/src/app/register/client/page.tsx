@@ -115,7 +115,7 @@ export default function RegisterClient() {
                     }}
                 >
                     <Box>
-                        <Typography>Foto *</Typography>
+                        <Typography>Foto</Typography>
                         <IconButton
                             component="label"
                             sx={{

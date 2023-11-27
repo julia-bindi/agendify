@@ -1,5 +1,5 @@
 "use client";
-import CustomSelect from "@/components/CustomSelect";
+import CustomMultipleSelect from "@/components/CustomMultipleSelect";
 import InformationModal from "@/components/InformationModal";
 import { AuthContext } from "@/context/AuthContext";
 import { RegisterContext } from "@/context/RegisterContext";
@@ -195,7 +195,7 @@ export default function RegisterCompany() {
                         </Grid>
                         <Grid item xs={6}>
                             <Typography>Categorias *</Typography>
-                            <CustomSelect
+                            <CustomMultipleSelect
                                 options={category}
                                 onChange={(category: string[]) =>
                                     setSelectedCategory(category)
@@ -204,7 +204,7 @@ export default function RegisterCompany() {
                         </Grid>
                         <Grid item xs={6}>
                             <Typography>Dias *</Typography>
-                            <CustomSelect
+                            <CustomMultipleSelect
                                 options={weekDays}
                                 onChange={(days: string[]) =>
                                     setSelectedDays(days)

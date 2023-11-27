@@ -1,9 +1,9 @@
-import { Checkbox, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent } from "@mui/material";
+import { ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
 
 type CustomSelectProps = {
     options: string[];
-    onChange?: (a: string[]) => void;
+    onChange?: (a: string) => void;
   };
 
 export default function CustomSelect({
@@ -11,32 +11,31 @@ export default function CustomSelect({
     onChange,
 }: CustomSelectProps) {
 
-    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+    const [selectedOption, setSelectedOption] = useState<string>();
     
-    const handleSelect = (event: SelectChangeEvent<typeof selectedOptions>) => {
+    const handleSelect = (event: SelectChangeEvent<typeof selectedOption>) => {
         const {
             target: { value },
         } = event;
-        setSelectedOptions(
+        setSelectedOption(
         // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
+            value,
         );
-        onChange && onChange(typeof value === 'string' ? value.split(',') : value);
+        onChange && onChange(value ? value : "");
     };
 
     return (
         <Select 
-            multiple
-            title={selectedOptions.join(', ')}
+            title={selectedOption}
             sx={{width: "100%"}} 
-            value={selectedOptions}
+            value={selectedOption}
             onChange={handleSelect}
-            renderValue={(selected: string[]) => selected.join(', ')}
+            renderValue={(selected: string) => selected}
             input={<OutlinedInput label="Selecione" />}
+            label="Selecione"
         >
             {options.map((option) => (
                 <MenuItem key={option} value={option}>
-                    <Checkbox checked={selectedOptions.indexOf(option) > -1}/>
                     <ListItemText primary={option} />
                 </MenuItem>
             ))}

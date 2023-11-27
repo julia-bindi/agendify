@@ -38,7 +38,7 @@ export default function Login(): ReactNode {
             setToken(token);
             setUserType(type);
             setName(name);
-            redirect("/");
+            redirect("/main");
         }
     }, [success, data, userNotFound, setToken, setUserType, setName]);
 
