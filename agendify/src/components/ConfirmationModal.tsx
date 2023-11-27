@@ -1,6 +1,4 @@
-import { AccessibilityContext } from "@/context/AccessibilityContext";
 import { Box, Button, Modal, Typography, useTheme } from "@mui/material";
-import React from "react";
 import { ReactNode, useState } from "react";
 
 export default function ConfirmationModal({
@@ -15,14 +13,13 @@ export default function ConfirmationModal({
     onClose?: () => void;
 }): ReactNode {
     const theme = useTheme();
-    const context = React.useContext(AccessibilityContext);
 
     const [open, setOpen] = useState<boolean>(true);
 
     const handleClose = () => {
         onClose && onClose();
         setOpen(false);
-    }
+    };
 
     return (
         <Modal open={open}>
@@ -41,12 +38,11 @@ export default function ConfirmationModal({
                     boxShadow: 24,
                     borderRadius: 4,
                     backgroundColor: theme.palette.primary.contrastText,
-
                 }}
             >
                 <Typography
                     sx={{
-                        fontSize: context.fontMultiplier * 16,
+                        fontSize: 16,
                         fontWeight: 400,
                     }}
                 >
@@ -54,16 +50,17 @@ export default function ConfirmationModal({
                 </Typography>
                 <Typography
                     sx={{
-                        fontSize: context.fontMultiplier * 12,
+                        fontSize: 12,
                         fontWeight: 400,
                     }}
                 >
                     {subtitle}
                 </Typography>
-                <Box sx={{
-                    display: 'flex',
-                    gap: '20px'
-                }}
+                <Box
+                    sx={{
+                        display: "flex",
+                        gap: "20px",
+                    }}
                 >
                     <Button
                         variant="contained"

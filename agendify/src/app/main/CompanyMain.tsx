@@ -1,6 +1,5 @@
 import ConfirmationModal from "@/components/ConfirmationModal";
 import ScheduleCard from "@/components/ScheduleCard";
-import { AccessibilityContext } from "@/context/AccessibilityContext";
 import { dummySchedules } from "@/utils/constants";
 import {
     Box,
@@ -10,12 +9,11 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
-import React, { ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
 import styles from "./index.module.scss";
 
 export default function CompanyMain() {
     const theme = useTheme();
-    const context = React.useContext(AccessibilityContext);
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -57,7 +55,7 @@ export default function CompanyMain() {
                     <Typography
                         sx={{
                             alignSelf: "flex-start",
-                            fontSize: context.fontMultiplier * 20,
+                            fontSize: 20,
                         }}
                     >
                         Cadastros

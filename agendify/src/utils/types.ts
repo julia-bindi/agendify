@@ -28,11 +28,12 @@ type Register = Pick<RegisterType, "email" | "password"> & {
 
 type AccessibilityType = {
     mode: "light" | "dark";
-    fontMultiplier: number;
+    zoom: number;
 };
 
-type Accessibility = Pick<AccessibilityType, "mode" | "fontMultiplier"> & {
+type Accessibility = Pick<AccessibilityType, "mode" | "zoom"> & {
     setMode: Function;
+    setZoom: Function;
 };
 
 type Service = {

@@ -7,10 +7,11 @@ const ID = "ACCESSIBILITY";
 
 const INITIAL_STATE: AccessibilityType = {
     mode: LIGHT,
-    fontMultiplier: 1,
+    zoom: 100,
 };
 
 const SET_MODE = `SET_MODE_${ID}`;
+const SET_FONT_MULTIPLIER = `SET_FONT_MULTIPLIER_${ID}`;
 
 export default function AccessibilityProvider({
     children,
@@ -19,14 +20,17 @@ export default function AccessibilityProvider({
 }) {
     const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
-    const { mode, fontMultiplier } = state;
+    const { mode, zoom } = state;
 
     const setMode = (value: string) => dispatch({ type: SET_MODE, value });
+    const setZoom = (value: string) =>
+        dispatch({ type: SET_FONT_MULTIPLIER, value });
 
     const context: Accessibility = {
         mode,
+        zoom,
         setMode,
-        fontMultiplier,
+        setZoom,
     };
 
     return (
@@ -41,6 +45,8 @@ const reducer = (state: AccessibilityType, action: Action) => {
     switch (type) {
         case SET_MODE:
             return { ...state, mode: value };
+        case SET_FONT_MULTIPLIER:
+            return { ...state, zoom: value };
         default:
             return { ...INITIAL_STATE };
     }

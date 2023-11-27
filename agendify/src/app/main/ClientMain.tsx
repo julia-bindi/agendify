@@ -1,16 +1,12 @@
 import CustomMultipleSelect from "@/components/CustomMultipleSelect";
 import StoreCard from "@/storeCard.tsx/StoreCard";
-import styles from "./index.module.scss"
 import { category, dummyStores } from "@/utils/constants";
 import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
-import { AccessibilityContext } from "@/context/AccessibilityContext";
-import React from "react";
+import styles from "./index.module.scss";
 
 export default function ClientMain() {
-    
     const theme = useTheme();
-    const context = React.useContext(AccessibilityContext);
 
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
@@ -23,10 +19,18 @@ export default function ClientMain() {
         "Visconde do Rio Branco",
     ];
 
-    return(
+    return (
         <div className={styles.main_container}>
-            <div style={{borderColor: `${theme.palette.primary.main}`}} className={`${styles.main_item} ${styles.main_form}`}>
-                <Typography sx={{ alignSelf: "flex-start", fontSize: context.fontMultiplier*20 }}>
+            <div
+                style={{ borderColor: `${theme.palette.primary.main}` }}
+                className={`${styles.main_item} ${styles.main_form}`}
+            >
+                <Typography
+                    sx={{
+                        alignSelf: "flex-start",
+                        fontSize: 20,
+                    }}
+                >
                     Filtros
                 </Typography>
                 <Box sx={{ width: "100%" }}>
@@ -55,9 +59,7 @@ export default function ClientMain() {
                         />
                         <Typography>às</Typography>
                         <TextField
-                            onChange={(event) =>
-                                setEndTime(event.target.value)
-                            }
+                            onChange={(event) => setEndTime(event.target.value)}
                             placeholder="00:00"
                             type="time"
                         />
@@ -79,16 +81,14 @@ export default function ClientMain() {
                             onChange={(event) =>
                                 setStartTime(event.target.value)
                             }
-                            sx={{width: 103}}
+                            sx={{ width: 103 }}
                             placeholder="00,00"
                             type="number"
                         />
                         <Typography>à</Typography>
                         <TextField
-                            onChange={(event) =>
-                                setEndTime(event.target.value)
-                            }
-                            sx={{width: 103}}
+                            onChange={(event) => setEndTime(event.target.value)}
+                            sx={{ width: 103 }}
                             placeholder="00,00"
                             type="number"
                         />
@@ -106,21 +106,18 @@ export default function ClientMain() {
                     </Typography>
                     <CustomMultipleSelect options={cities} />
                 </Box>
-                <Button
-                    variant="contained"
-                >
-                    Aplicar
-                </Button>
+                <Button variant="contained">Aplicar</Button>
             </div>
-            <div  style={{borderColor: `${theme.palette.primary.main}`}} className={`${styles.main_item} ${styles.main_list}`}>
+            <div
+                style={{ borderColor: `${theme.palette.primary.main}` }}
+                className={`${styles.main_item} ${styles.main_list}`}
+            >
                 <div className={styles.main_scroll}>
                     {dummyStores.map((store, i) => (
                         <StoreCard key={store.name + i} {...store} />
-                    ))} 
-
+                    ))}
                 </div>
             </div>
         </div>
-    )
-
+    );
 }

@@ -1,16 +1,16 @@
-import { AccessibilityContext } from '@/context/AccessibilityContext';
-import { Button, Box, Typography, useTheme } from '@mui/material';
-import React from 'react';
-import CustomSelect from './CustomSelect';
+import { AccessibilityContext } from "@/context/AccessibilityContext";
+import { Box, Button, Typography, useTheme } from "@mui/material";
+import React from "react";
+import CustomSelect from "./CustomSelect";
 
 type ServiceCardProps = {
-    name: string,
-    cost: number,
-    duration: number,
-    description: string,
-    dates: string[],
-    times: string[],
-    onConfirm: (a:Service) => void
+    name: string;
+    cost: number;
+    duration: number;
+    description: string;
+    dates: string[];
+    times: string[];
+    onConfirm: (a: Service) => void;
 };
 
 export default function ServiceCard({
@@ -20,7 +20,7 @@ export default function ServiceCard({
     description,
     dates,
     times,
-    onConfirm
+    onConfirm,
 }: ServiceCardProps) {
     const context = React.useContext(AccessibilityContext);
     const theme = useTheme();
@@ -33,52 +33,62 @@ export default function ServiceCard({
             cost: cost,
             duration: duration,
             description: description,
-            date: date ? date : '',
-            time: time ? time : '',
-        })
-    }
+            date: date ? date : "",
+            time: time ? time : "",
+        });
+    };
 
     return (
         <Box
             sx={{
-                display: 'flex',
-                gap: '10px',
-                justifyContent: 'space-between',
-                paddingLeft: '20px',
-                paddingRight: '25px',
-                borderRadius: '10px',
-                '&:hover':{
-                    backgroundColor: theme.palette.primary.light + '20',
-                }
+                display: "flex",
+                gap: "10px",
+                justifyContent: "space-between",
+                paddingLeft: "20px",
+                paddingRight: "25px",
+                borderRadius: "10px",
+                "&:hover": {
+                    backgroundColor: theme.palette.primary.light + "20",
+                },
             }}
         >
             <Box
                 sx={{
-                    display: 'flex',
-                    flexFlow: 'column',
+                    display: "flex",
+                    flexFlow: "column",
                 }}
             >
-                <Typography sx={{fontSize: context.fontMultiplier*24}}>{name}</Typography>
-                <Typography sx={{fontSize: context.fontMultiplier*16}}>{"Duração de " + duration + " minutos"}</Typography>
-                <Typography sx={{fontSize: context.fontMultiplier*14}}>{description}</Typography>
+                <Typography sx={{ fontSize: 24 }}>{name}</Typography>
+                <Typography sx={{ fontSize: 16 }}>
+                    {"Duração de " + duration + " minutos"}
+                </Typography>
+                <Typography sx={{ fontSize: 14 }}>{description}</Typography>
                 <Typography>&nbsp;</Typography>
                 <Typography>{"R$ " + cost.toFixed(2)}</Typography>
             </Box>
-            <Box sx={{
-                display: 'flex',
-                flexFlow: 'column',
-                justifyContent: 'center',
-                width: '300px',
-                gap: '20px'
-            }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexFlow: "column",
+                    justifyContent: "center",
+                    width: "300px",
+                    gap: "20px",
+                }}
+            >
                 <Box
                     sx={{
-                        display: 'flex',
-                        gap: '10px'
+                        display: "flex",
+                        gap: "10px",
                     }}
                 >
-                    <CustomSelect options={dates} onChange={(date) => setDate(date)}/>
-                    <CustomSelect options={times} onChange={(time) => setTime(time)}/>
+                    <CustomSelect
+                        options={dates}
+                        onChange={(date) => setDate(date)}
+                    />
+                    <CustomSelect
+                        options={times}
+                        onChange={(time) => setTime(time)}
+                    />
                 </Box>
                 <Button
                     variant="contained"
@@ -91,5 +101,4 @@ export default function ServiceCard({
             </Box>
         </Box>
     );
-};
-  
+}

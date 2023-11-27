@@ -13,7 +13,7 @@ export default function Accessibility(): ReactNode {
     const theme = useTheme();
     const context = useContext(AccessibilityContext);
 
-    const { setMode } = context;
+    const { zoom, setMode, setZoom } = context;
 
     const [mode, setModeState] = useState<typeof LIGHT | typeof DARK>(LIGHT);
 
@@ -34,13 +34,17 @@ export default function Accessibility(): ReactNode {
         },
         {
             icon: <ZoomOutOutlinedIcon />,
-            name: "Diminuir zoom",
-            onClick: () => {},
+            name: `Diminuir zoom (${zoom}%)`,
+            onClick: () => {
+                setZoom(zoom - 10);
+            },
         },
         {
             icon: <ZoomInOutlinedIcon />,
-            name: "Aumentar zoom",
-            onClick: () => {},
+            name: `Aumentar zoom (${zoom}%)`,
+            onClick: () => {
+                setZoom(zoom + 10);
+            },
         },
     ];
 

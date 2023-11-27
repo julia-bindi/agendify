@@ -1,13 +1,10 @@
 "use client";
-import { AccessibilityContext } from "@/context/AccessibilityContext";
 import { Box, Button, Container, Link, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
 
 export default function Home() {
     const router = useRouter();
-    const context = React.useContext(AccessibilityContext);
 
     return (
         <Container
@@ -33,7 +30,7 @@ export default function Home() {
                 priority
                 style={{ cursor: "pointer" }}
             />
-            <Typography sx={{ fontSize: context.fontMultiplier * 40 }}>
+            <Typography sx={{ fontSize: 40 }}>
                 Marcar um serviço agora é fácil!
             </Typography>
             <Box
