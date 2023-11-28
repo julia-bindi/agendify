@@ -9,7 +9,7 @@ export default function ConfirmationModal({
 }: {
     title: string;
     subtitle: string;
-    onConfirm: Function;
+    onConfirm: () => void;
     onClose?: () => void;
 }): ReactNode {
     const theme = useTheme();
@@ -65,7 +65,7 @@ export default function ConfirmationModal({
                     <Button
                         variant="contained"
                         color="primary"
-                        onClick={() => onConfirm}
+                        onClick={onConfirm}
                     >
                         Confirmar
                     </Button>

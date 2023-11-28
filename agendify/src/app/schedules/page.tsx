@@ -23,6 +23,7 @@ export default function Schedules() {
     useEffect(() => {
         if(success){
             setReservations(data.map((reservation: any):Service => ({
+                id: reservation.id,
                 name: reservation.service.name,
                 cost: reservation.service.cost,
                 duration: reservation.service.duration,
