@@ -1,5 +1,9 @@
 import { AccessibilityContext } from "@/context/AccessibilityContext";
 import { Box, Button, Typography, useTheme } from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DemoItem } from "@mui/x-date-pickers/internals/demo";
+import dayjs from "dayjs";
 import React from "react";
 import CustomSelect from "./CustomSelect";
 
@@ -26,6 +30,9 @@ export default function ServiceCard({
     const theme = useTheme();
     const [date, setDate] = React.useState<string>();
     const [time, setTime] = React.useState<string>();
+
+    const minDate = new Date();
+    const maxDate = new Date(new Date().setDate(minDate.getDate() + 30));
 
     const handleConfirm = () => {
         onConfirm({
@@ -78,17 +85,29 @@ export default function ServiceCard({
                 <Box
                     sx={{
                         display: "flex",
+                        alignItems: "flex-end",
                         gap: "10px",
                     }}
                 >
-                    <CustomSelect
-                        options={dates}
-                        onChange={(date) => setDate(date)}
-                    />
-                    <CustomSelect
-                        options={times}
-                        onChange={(time) => setTime(time)}
-                    />
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DemoItem label="Data">
+                            <DatePicker
+                                format="DD/MM/YYYY"
+                                minDate={dayjs(minDate)}
+                                maxDate={dayjs(maxDate)}
+                                sx={{ width: 200 }}
+                            />
+                        </DemoItem>
+                    </LocalizationProvider>
+                    <Box sx={{ width: "100%" }}>
+                        <Typography sx={{ alignSelf: "flex-start" }}>
+                            Horários
+                        </Typography>
+                        <CustomSelect
+                            options={times}
+                            onChange={(time) => setTime(time)}
+                        />
+                    </Box>
                 </Box>
                 <Button
                     variant="contained"

@@ -47,17 +47,28 @@ export default function ClientMain() {
     }, [data]);
 
     const filterCompanies = () => {
-        setCompanies(data && data.filter((c: any) => (
-            (categoriesSelected.length ? c.category.filter((cat: any) => (
-                categoriesSelected.includes(cat)
-            )).length > 0 : true) &&
-            (startTime != "" && endTime != "" ? (parseHour(startTime) <= parseHour(c.endTime) && parseHour(endTime) >= parseHour(c.startTime)) : true) &&
-            (statesSelected.length ? statesSelected.includes(c.state) : true) &&
-            (citiesSelected.length ? citiesSelected.includes(c.city) : true)
-        )));
+        setCompanies(
+            data &&
+                data.filter(
+                    (c: any) =>
+                        (categoriesSelected.length
+                            ? c.category.filter((cat: any) =>
+                                  categoriesSelected.includes(cat)
+                              ).length > 0
+                            : true) &&
+                        (startTime != "" && endTime != ""
+                            ? parseHour(startTime) <= parseHour(c.endTime) &&
+                              parseHour(endTime) >= parseHour(c.startTime)
+                            : true) &&
+                        (statesSelected.length
+                            ? statesSelected.includes(c.state)
+                            : true) &&
+                        (citiesSelected.length
+                            ? citiesSelected.includes(c.city)
+                            : true)
+                )
+        );
     };
-
-    console.log(companies)
 
     return (
         <Container
@@ -124,9 +135,9 @@ export default function ClientMain() {
                     <Typography sx={{ alignSelf: "flex-start" }}>
                         Estado
                     </Typography>
-                    <CustomMultipleSelect 
+                    <CustomMultipleSelect
                         disabled={loading}
-                        options={states} 
+                        options={states}
                         onChange={(states: string[]) =>
                             setStatesSelected(states)
                         }
@@ -136,15 +147,19 @@ export default function ClientMain() {
                     <Typography sx={{ alignSelf: "flex-start" }}>
                         Cidade
                     </Typography>
-                    <CustomMultipleSelect 
-                        disabled={loading} 
-                        options={cities} 
+                    <CustomMultipleSelect
+                        disabled={loading}
+                        options={cities}
                         onChange={(cities: string[]) =>
                             setCitiesSelected(cities)
                         }
                     />
                 </Box>
-                <Button variant="contained" disabled={loading} onClick={filterCompanies}>
+                <Button
+                    variant="contained"
+                    disabled={loading}
+                    onClick={filterCompanies}
+                >
                     Aplicar
                 </Button>
             </Container>

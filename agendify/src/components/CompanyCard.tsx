@@ -83,7 +83,6 @@ export default function CompanyCard({
             divider
             sx={{ gap: "16px" }}
             onClick={() => {
-                console.log(company);
                 setCompany(company);
                 router.push("/main/services");
             }}
