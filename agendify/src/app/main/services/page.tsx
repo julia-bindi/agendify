@@ -4,7 +4,6 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 import ServiceCard from "@/components/ServiceCard";
 import { CompanyContext } from "@/context/CompanyContext";
 import useHttp from "@/hooks/useHttp";
-import { dummyDates, dummyTimes } from "@/utils/constants";
 import { SERVICES_COMPANY_REQUEST } from "@/utils/requests";
 import { CircularProgress, Container, useTheme } from "@mui/material";
 import { ReactNode, useContext, useEffect, useState } from "react";
@@ -100,8 +99,6 @@ export default function Login() {
                             {data &&
                                 data.map((service: any, i: number) => (
                                     <ServiceCard
-                                        dates={dummyDates}
-                                        times={dummyTimes}
                                         onConfirm={handleConfirm}
                                         key={service.name + i}
                                         {...service}

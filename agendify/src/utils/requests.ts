@@ -46,3 +46,8 @@ export const SERVICES_COMPANY_REQUEST = (email: string) => ({
     url: `user/company/${email}`,
     method: GET,
 });
+
+export const SERVICES_COMPANY_CHECK = (id: number, date:string) => ({
+    url: `reservation/check/?id=${id}&date=${date}`,
+    method: GET,
+});
