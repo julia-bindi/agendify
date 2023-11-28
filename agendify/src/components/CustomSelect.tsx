@@ -4,11 +4,13 @@ import { useState } from "react";
 type CustomSelectProps = {
     options: string[];
     onChange?: (a: string) => void;
+    disabled?: boolean;
   };
 
 export default function CustomSelect({
     options,
     onChange,
+    disabled=false,
 }: CustomSelectProps) {
 
     const [selectedOption, setSelectedOption] = useState<string>();

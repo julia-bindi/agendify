@@ -17,6 +17,11 @@ export const USER_RESERVATIONS_REQUEST = {
     method: GET,
 };
 
+export const USER_RESERVATIONS_REQUEST_DELETE = {
+    url: "reservation/cancel",
+    method: DELETE,
+};
+
 export const USER_SERVICES_REQUEST = {
     url: "user/services",
     method: GET,
@@ -39,5 +44,10 @@ export const COMPANIES_REQUEST = {
 
 export const SERVICES_COMPANY_REQUEST = (email: string) => ({
     url: `user/company/${email}`,
+    method: GET,
+});
+
+export const SERVICES_COMPANY_CHECK = (id: number, date:string) => ({
+    url: `reservation/check/?id=${id}&date=${date}`,
     method: GET,
 });
