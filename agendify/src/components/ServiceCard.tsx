@@ -96,7 +96,7 @@ export default function ServiceCard({
                         <DemoItem label="Data">
                             <DatePicker
                                 format="DD/MM/YYYY"
-                                minDate={dayjs(minDate)}
+                                disablePast
                                 maxDate={dayjs(maxDate)}
                                 sx={{ width: 200 }}
                             />
