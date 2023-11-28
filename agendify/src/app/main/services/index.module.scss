@@ -4,7 +4,7 @@
     width: 100%;
     padding: 3vw;
     gap: 20px;
-    height: 80vh;
+    height: 100%;
 }
 
 .services_container {
@@ -14,13 +14,13 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 55vh;
+    height: 100%;
 }
 
 .main_scroll {
     overflow-y: unset;
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: auto;
     gap: 15px;
 }

@@ -1,3 +1,6 @@
+import { AuthContext } from "@/context/AuthContext";
+import useHttp from "@/hooks/useHttp";
+import { SERVICES_COMPANY_CHECK } from "@/utils/requests";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -5,9 +8,6 @@ import { DemoItem } from "@mui/x-date-pickers/internals/demo";
 import dayjs from "dayjs";
 import React, { useEffect } from "react";
 import CustomSelect from "./CustomSelect";
-import { SERVICES_COMPANY_CHECK } from "@/utils/requests";
-import useHttp from "@/hooks/useHttp";
-import { AuthContext } from "@/context/AuthContext";
 
 type ServiceCardProps = {
     id: number;
@@ -36,14 +36,14 @@ export default function ServiceCard({
 
     const minDate = new Date();
     const maxDate = new Date(new Date().setDate(minDate.getDate() + 30));
-    
+
     useEffect(() => {
-        if(!data) return;
-        setPossibleTimes(data)
+        if (!data) return;
+        setPossibleTimes(data);
     }, [data]);
-    
+
     useEffect(() => {
-        if(!date) return;
+        if (!date) return;
         requestHttp(SERVICES_COMPANY_CHECK(id, date), {}, context.token);
     }, [date]);
 
@@ -109,10 +109,19 @@ export default function ServiceCard({
                         <DemoItem label="Data">
                             <DatePicker
                                 format="DD/MM/YYYY"
-                                minDate={dayjs(minDate)}
+                                disablePast
                                 maxDate={dayjs(maxDate)}
-                                onChange={(value) => setDate(value?.format('DD/MM/YY'))}
-                                sx={{ width: 200 }}
+                                onChange={(value) =>
+                                    setDate(value?.format("DD/MM/YY"))
+                                }
+                                sx={{
+                                    width: 200,
+                                    ".MuiButtonBase-root": {
+                                        color: theme.palette.primary.main,
+                                        padding: "0 8px",
+                                        backgroundColor: "transparent",
+                                    },
+                                }}
                             />
                         </DemoItem>
                     </LocalizationProvider>

@@ -164,6 +164,13 @@ export const theme = (mode: typeof LIGHT | typeof DARK) => {
                     },
                 },
             },
+            MuiTypography: {
+                styleOverrides: {
+                    root: {
+                        color: mode === DARK ? "#FFFFFF" : "#000000",
+                    },
+                },
+            },
         },
     });
 };
