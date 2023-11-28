@@ -21,7 +21,7 @@ export const COMPANIES_REQUEST = {
     method: POST,
 };
 
-export const SERVICES_COMPANY_REQUEST = {
-    url: "user/company/services",
+export const SERVICES_COMPANY_REQUEST = (email: string) => ({
+    url: `user/company/${email}`,
     method: GET,
-};
+});
