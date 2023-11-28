@@ -13,7 +13,7 @@ import {
     useTheme,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { mountFilter } from "./utils";
+import { mountFilter, parseHour } from "./utils";
 
 export default function ClientMain() {
     const theme = useTheme();
@@ -21,11 +21,11 @@ export default function ClientMain() {
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
 
-    const [companies, setCompanies] = useState<string[]>([]);
-    const [catogories, setCategories] = useState<string[]>([]);
+    const [companies, setCompanies] = useState<CompanyType[]>();
+    const [categories, setCategories] = useState<string[]>([]);
     const [states, setStates] = useState<string[]>([]);
     const [cities, setCities] = useState<string[]>([]);
-    const [catogoriesSelected, setCategoriesSelected] = useState<string[]>([]);
+    const [categoriesSelected, setCategoriesSelected] = useState<string[]>([]);
     const [statesSelected, setStatesSelected] = useState<string[]>([]);
     const [citiesSelected, setCitiesSelected] = useState<string[]>([]);
 
@@ -38,17 +38,26 @@ export default function ClientMain() {
     useEffect(() => {
         if (data) {
             setCompanies(data);
-            const { catogoriesFilter, statesFilter, citiesFilter } =
+            const { categoriesFilter, statesFilter, citiesFilter } =
                 mountFilter(data);
-            setCategories(catogoriesFilter);
+            setCategories(categoriesFilter);
             setStates(statesFilter);
             setCities(citiesFilter);
         }
     }, [data]);
 
     const filterCompanies = () => {
-        companies.filter((c) => {});
+        setCompanies(data && data.filter((c: any) => (
+            (categoriesSelected.length ? c.category.filter((cat: any) => (
+                categoriesSelected.includes(cat)
+            )).length > 0 : true) &&
+            (startTime != "" && endTime != "" ? (parseHour(startTime) <= parseHour(c.endTime) && parseHour(endTime) >= parseHour(c.startTime)) : true) &&
+            (statesSelected.length ? statesSelected.includes(c.state) : true) &&
+            (citiesSelected.length ? citiesSelected.includes(c.city) : true)
+        )));
     };
+
+    console.log(companies)
 
     return (
         <Container
@@ -79,7 +88,10 @@ export default function ClientMain() {
                     </Typography>
                     <CustomMultipleSelect
                         disabled={loading}
-                        options={catogories}
+                        options={categories}
+                        onChange={(category: string[]) =>
+                            setCategoriesSelected(category)
+                        }
                     />
                 </Box>
                 <Box sx={{ width: "100%" }}>
@@ -112,15 +124,27 @@ export default function ClientMain() {
                     <Typography sx={{ alignSelf: "flex-start" }}>
                         Estado
                     </Typography>
-                    <CustomMultipleSelect disabled={loading} options={states} />
+                    <CustomMultipleSelect 
+                        disabled={loading}
+                        options={states} 
+                        onChange={(states: string[]) =>
+                            setStatesSelected(states)
+                        }
+                    />
                 </Box>
                 <Box sx={{ width: "100%" }}>
                     <Typography sx={{ alignSelf: "flex-start" }}>
                         Cidade
                     </Typography>
-                    <CustomMultipleSelect disabled={loading} options={cities} />
+                    <CustomMultipleSelect 
+                        disabled={loading} 
+                        options={cities} 
+                        onChange={(cities: string[]) =>
+                            setCitiesSelected(cities)
+                        }
+                    />
                 </Box>
-                <Button variant="contained" disabled={loading}>
+                <Button variant="contained" disabled={loading} onClick={filterCompanies}>
                     Aplicar
                 </Button>
             </Container>
@@ -151,8 +175,8 @@ export default function ClientMain() {
                         }}
                     >
                         <List>
-                            {data &&
-                                data.map((store: CompanyType) => (
+                            {companies &&
+                                companies.map((store: CompanyType) => (
                                     <CompanyCard
                                         key={store.email}
                                         button={true}

@@ -323,7 +323,7 @@ export default function RegisterCompany() {
                                                 name: fullName,
                                                 description,
                                                 phone,
-                                                categority: selectedCategory[0],
+                                                category: selectedCategory,
                                                 workDays: selectedDays,
                                                 startTime,
                                                 endTime,
