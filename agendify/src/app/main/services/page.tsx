@@ -4,7 +4,7 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 import ServiceCard from "@/components/ServiceCard";
 import { CompanyContext } from "@/context/CompanyContext";
 import useHttp from "@/hooks/useHttp";
-import { dummyDates, dummyServices, dummyTimes } from "@/utils/constants";
+import { dummyDates, dummyTimes } from "@/utils/constants";
 import { SERVICES_COMPANY_REQUEST } from "@/utils/requests";
 import { CircularProgress, Container, useTheme } from "@mui/material";
 import { ReactNode, useContext, useEffect, useState } from "react";
@@ -48,13 +48,10 @@ export default function Login() {
 
     const [confirmService, setConfirmService] = useState<Service | null>(null);
 
-    const { loading, requestHttp } = useHttp();
-
-    // TODO: pegar data no useHttp
-    const data = dummyServices;
+    const { loading, data, requestHttp } = useHttp();
 
     useEffect(() => {
-        requestHttp(SERVICES_COMPANY_REQUEST, { email });
+        requestHttp(SERVICES_COMPANY_REQUEST(email), {});
     }, []);
 
     const handleConfirm = (service: Service) => {
@@ -78,18 +75,7 @@ export default function Login() {
         />
     );
 
-    return loading ? (
-        <Container
-            sx={{
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-            }}
-        >
-            <CircularProgress />
-        </Container>
-    ) : (
+    return (
         <>
             {confirmService && renderConfirm()}
             <div className={styles.main_container}>
@@ -98,17 +84,31 @@ export default function Login() {
                     className={styles.services_container}
                     style={{ borderColor: `${theme.palette.primary.main}` }}
                 >
-                    <div className={styles.main_scroll}>
-                        {data.map((service, i) => (
-                            <ServiceCard
-                                dates={dummyDates}
-                                times={dummyTimes}
-                                onConfirm={handleConfirm}
-                                key={service.name + i}
-                                {...service}
-                            />
-                        ))}
-                    </div>
+                    {loading ? (
+                        <Container
+                            sx={{
+                                height: "100%",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <CircularProgress />
+                        </Container>
+                    ) : (
+                        <div className={styles.main_scroll}>
+                            {data &&
+                                data.map((service: any, i: number) => (
+                                    <ServiceCard
+                                        dates={dummyDates}
+                                        times={dummyTimes}
+                                        onConfirm={handleConfirm}
+                                        key={service.name + i}
+                                        {...service}
+                                    />
+                                ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </>
