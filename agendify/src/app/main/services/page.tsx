@@ -1,42 +1,110 @@
 "use client";
+import CompanyCard from "@/components/CompanyCard";
 import ConfirmationModal from "@/components/ConfirmationModal";
-import { dummyServices, dummyDates, dummyTimes, dummyStores } from "@/utils/constants";
-import { useTheme } from "@mui/material";
-import styles from "./index.module.scss"
-import { ReactNode, useState } from "react";
-import StoreCard from "@/storeCard.tsx/StoreCard";
 import ServiceCard from "@/components/ServiceCard";
+import { CompanyContext } from "@/context/CompanyContext";
+import useHttp from "@/hooks/useHttp";
+import { dummyDates, dummyServices, dummyTimes } from "@/utils/constants";
+import { SERVICES_COMPANY_REQUEST } from "@/utils/requests";
+import { CircularProgress, Container, useTheme } from "@mui/material";
+import { ReactNode, useContext, useEffect, useState } from "react";
+import styles from "./index.module.scss";
 
 export default function Login() {
     const theme = useTheme();
+    const context = useContext(CompanyContext);
+
+    const {
+        email,
+        image,
+        name,
+        category,
+        description,
+        workDays,
+        startTime,
+        endTime,
+        street,
+        homeNumber,
+        neighborhood,
+        state,
+        city,
+    } = context;
+
+    const company: CompanyType = {
+        email,
+        image,
+        name,
+        category,
+        description,
+        workDays,
+        startTime,
+        endTime,
+        street,
+        homeNumber,
+        neighborhood,
+        state,
+        city,
+    };
+
     const [confirmService, setConfirmService] = useState<Service | null>(null);
 
-    const handleConfirm = (service:Service) => {
+    const { loading, requestHttp } = useHttp();
+
+    // TODO: pegar data no useHttp
+    const data = dummyServices;
+
+    useEffect(() => {
+        requestHttp(SERVICES_COMPANY_REQUEST, { email });
+    }, []);
+
+    const handleConfirm = (service: Service) => {
         setConfirmService(service);
-    }
-    
+    };
+
     const renderConfirm = (): ReactNode => (
         <ConfirmationModal
             title={confirmService ? confirmService.name : ""}
-            subtitle={confirmService ? confirmService.date + " - " + confirmService.time + "\nR$ " + confirmService.cost.toFixed(2) : ""}
+            subtitle={
+                confirmService
+                    ? confirmService.date +
+                      " - " +
+                      confirmService.time +
+                      "\nR$ " +
+                      confirmService.cost.toFixed(2)
+                    : ""
+            }
             onConfirm={() => {}}
             onClose={() => setConfirmService(null)}
         />
     );
 
-    return (
+    return loading ? (
+        <Container
+            sx={{
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+            }}
+        >
+            <CircularProgress />
+        </Container>
+    ) : (
         <>
             {confirmService && renderConfirm()}
             <div className={styles.main_container}>
-                <StoreCard {...dummyStores[0]}/>
-                <div className={styles.services_container} style={{borderColor: `${theme.palette.primary.main}`}}>
+                <CompanyCard company={company} />
+                <div
+                    className={styles.services_container}
+                    style={{ borderColor: `${theme.palette.primary.main}` }}
+                >
                     <div className={styles.main_scroll}>
-                        {dummyServices.map((service, i) => (
-                            <ServiceCard 
+                        {data.map((service, i) => (
+                            <ServiceCard
                                 dates={dummyDates}
-                                times={dummyTimes} 
-                                onConfirm={handleConfirm} 
-                                key={service.name + i} 
+                                times={dummyTimes}
+                                onConfirm={handleConfirm}
+                                key={service.name + i}
                                 {...service}
                             />
                         ))}

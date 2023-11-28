@@ -14,4 +14,14 @@ export const REGISTER_REQUEST = {
 export const USER_RESERVATIONS_REQUEST = {
     url: "user/reservations",
     method: GET,
-}
+};
+
+export const COMPANIES_REQUEST = {
+    url: "service/search",
+    method: POST,
+};
+
+export const SERVICES_COMPANY_REQUEST = {
+    url: "user/company/services",
+    method: GET,
+};

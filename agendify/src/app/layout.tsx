@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import ZoomComponent from "@/components/ZoomComponent";
 import AccessibilityProvider from "@/context/AccessibilityProvider";
 import AuthProvider from "@/context/AuthProvider";
+import CompanyProvider from "@/context/CompanyProvider";
 import RegisterProvider from "@/context/RegisterProvider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -28,13 +29,17 @@ export default function RootLayout({
                 <AccessibilityProvider>
                     <AuthProvider>
                         <RegisterProvider>
-                            <ThemeRegistry>
-                                <>
-                                    <Header />
-                                    <ZoomComponent>{children}</ZoomComponent>
-                                    <Accessibility />
-                                </>
-                            </ThemeRegistry>
+                            <CompanyProvider>
+                                <ThemeRegistry>
+                                    <>
+                                        <Header />
+                                        <ZoomComponent>
+                                            {children}
+                                        </ZoomComponent>
+                                        <Accessibility />
+                                    </>
+                                </ThemeRegistry>
+                            </CompanyProvider>
                         </RegisterProvider>
                     </AuthProvider>
                 </AccessibilityProvider>

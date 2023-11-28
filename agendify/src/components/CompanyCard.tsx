@@ -1,36 +1,44 @@
+import { CompanyContext } from "@/context/CompanyContext";
 import {
     Avatar,
+    ListItem,
     ListItemAvatar,
     ListItemButton,
     ListItemText,
     Typography,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
 
-export default function StoreCard({
-    image,
-    name,
-    category,
-    description,
-    workDays,
-    startTime,
-    endTime,
-    street,
-    homeNumber,
-    neighborhood,
-    state,
-    city,
-}: StoreCardProps) {
+export default function CompanyCard({
+    button,
+    company,
+}: {
+    button?: boolean;
+    company: CompanyType;
+}) {
     const router = useRouter();
+    const context = useContext(CompanyContext);
 
-    return (
-        <ListItemButton
-            divider
-            sx={{ gap: "16px" }}
-            onClick={() => {
-                router.push("/main/services");
-            }}
-        >
+    const { setCompany } = context;
+
+    const {
+        image,
+        name,
+        category,
+        description,
+        workDays,
+        startTime,
+        endTime,
+        street,
+        homeNumber,
+        neighborhood,
+        city,
+        state,
+    } = company;
+
+    const renderListItem = () => (
+        <>
             <ListItemAvatar>
                 <Avatar
                     src={image}
@@ -67,6 +75,22 @@ export default function StoreCard({
                     </>
                 }
             />
+        </>
+    );
+
+    return button ? (
+        <ListItemButton
+            divider
+            sx={{ gap: "16px" }}
+            onClick={() => {
+                console.log(company);
+                setCompany(company);
+                router.push("/main/services");
+            }}
+        >
+            {renderListItem()}
         </ListItemButton>
+    ) : (
+        <ListItem sx={{ gap: "16px" }}>{renderListItem()}</ListItem>
     );
 }

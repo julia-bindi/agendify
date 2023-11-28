@@ -1,16 +1,19 @@
+import CompanyCard from "@/components/CompanyCard";
 import CustomMultipleSelect from "@/components/CustomMultipleSelect";
-import StoreCard from "@/storeCard.tsx/StoreCard";
-import { category, dummyStores } from "@/utils/constants";
+import useHttp from "@/hooks/useHttp";
+import { COMPANIES_REQUEST } from "@/utils/requests";
 import {
     Box,
     Button,
+    CircularProgress,
     Container,
     List,
     TextField,
     Typography,
     useTheme,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { mountFilter } from "./utils";
 
 export default function ClientMain() {
     const theme = useTheme();
@@ -18,13 +21,34 @@ export default function ClientMain() {
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
 
-    const states = ["Minas Gerais", "São Paulo", "Rio de Janeiro"];
-    const cities = [
-        "Belo Horizonte",
-        "Juiz de Fora",
-        "Jundiaí",
-        "Visconde do Rio Branco",
-    ];
+    const [companies, setCompanies] = useState<string[]>([]);
+    const [catogories, setCategories] = useState<string[]>([]);
+    const [states, setStates] = useState<string[]>([]);
+    const [cities, setCities] = useState<string[]>([]);
+    const [catogoriesSelected, setCategoriesSelected] = useState<string[]>([]);
+    const [statesSelected, setStatesSelected] = useState<string[]>([]);
+    const [citiesSelected, setCitiesSelected] = useState<string[]>([]);
+
+    const { loading, data, requestHttp } = useHttp();
+
+    useEffect(() => {
+        requestHttp(COMPANIES_REQUEST, {});
+    }, []);
+
+    useEffect(() => {
+        if (data) {
+            setCompanies(data);
+            const { catogoriesFilter, statesFilter, citiesFilter } =
+                mountFilter(data);
+            setCategories(catogoriesFilter);
+            setStates(statesFilter);
+            setCities(citiesFilter);
+        }
+    }, [data]);
+
+    const filterCompanies = () => {
+        companies.filter((c) => {});
+    };
 
     return (
         <Container
@@ -39,7 +63,7 @@ export default function ClientMain() {
             <Container
                 maxWidth={false}
                 sx={{
-                    height: "90%",
+                    height: "100%",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-around",
@@ -53,7 +77,10 @@ export default function ClientMain() {
                     <Typography sx={{ alignSelf: "flex-start" }}>
                         Categorias
                     </Typography>
-                    <CustomMultipleSelect options={category} />
+                    <CustomMultipleSelect
+                        disabled={loading}
+                        options={catogories}
+                    />
                 </Box>
                 <Box sx={{ width: "100%" }}>
                     <Typography sx={{ alignSelf: "flex-start" }}>
@@ -83,62 +110,58 @@ export default function ClientMain() {
                 </Box>
                 <Box sx={{ width: "100%" }}>
                     <Typography sx={{ alignSelf: "flex-start" }}>
-                        Valores
-                    </Typography>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            gap: "3px",
-                        }}
-                    >
-                        <TextField
-                            onChange={(event) =>
-                                setStartTime(event.target.value)
-                            }
-                            sx={{ width: 103 }}
-                            placeholder="00,00"
-                            type="number"
-                        />
-                        <Typography>à</Typography>
-                        <TextField
-                            onChange={(event) => setEndTime(event.target.value)}
-                            sx={{ width: 103 }}
-                            placeholder="00,00"
-                            type="number"
-                        />
-                    </Box>
-                </Box>
-                <Box sx={{ width: "100%" }}>
-                    <Typography sx={{ alignSelf: "flex-start" }}>
                         Estado
                     </Typography>
-                    <CustomMultipleSelect options={states} />
+                    <CustomMultipleSelect disabled={loading} options={states} />
                 </Box>
                 <Box sx={{ width: "100%" }}>
                     <Typography sx={{ alignSelf: "flex-start" }}>
                         Cidade
                     </Typography>
-                    <CustomMultipleSelect options={cities} />
+                    <CustomMultipleSelect disabled={loading} options={cities} />
                 </Box>
-                <Button variant="contained">Aplicar</Button>
+                <Button variant="contained" disabled={loading}>
+                    Aplicar
+                </Button>
             </Container>
             <Container
                 sx={{
-                    height: "90%",
+                    height: "100%",
                     border: `1px solid ${theme.palette.primary.main}`,
                     borderRadius: 8,
                     padding: "16px",
                 }}
             >
-                <Container sx={{ height: "100%", overflowY: "scroll" }}>
-                    <List>
-                        {dummyStores.map((store, i) => (
-                            <StoreCard key={store.name + i} {...store} />
-                        ))}
-                    </List>
-                </Container>
+                {loading ? (
+                    <Container
+                        sx={{
+                            height: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <CircularProgress />
+                    </Container>
+                ) : (
+                    <Container
+                        sx={{
+                            height: "100%",
+                            overflowY: "auto",
+                        }}
+                    >
+                        <List>
+                            {data &&
+                                data.map((store: CompanyType) => (
+                                    <CompanyCard
+                                        key={store.email}
+                                        button={true}
+                                        company={store}
+                                    />
+                                ))}
+                        </List>
+                    </Container>
+                )}
             </Container>
         </Container>
     );

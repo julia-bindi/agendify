@@ -24,10 +24,11 @@ export const weekDays = [
     "Sábado",
 ];
 
-export const dummyStores = [
+export const dummyStores: CompanyType[] = [
     {
+        email: "cabeleleila01@gmail.com",
         image: "/cabeleleila_leila.png",
-        name: "Cabeleleila Leila",
+        name: "Cabeleleila Leila 01",
         category: ["Corte", "Pintura", "Maquiagem"],
         description:
             "Venha se renovar conosco! Valores competitivos e resultados indiscutíveis!",
@@ -48,8 +49,9 @@ export const dummyStores = [
         city: "Belo Horizonte",
     },
     {
+        email: "cabeleleila02@gmail.com",
         image: "/cabeleleila_leila.png",
-        name: "Cabeleleila Leila",
+        name: "Cabeleleila Leila 02",
         category: ["Corte", "Pintura", "Maquiagem"],
         description:
             "Venha se renovar conosco! Valores competitivos e resultados indiscutíveis!",
@@ -70,8 +72,9 @@ export const dummyStores = [
         city: "Belo Horizonte",
     },
     {
+        email: "cabeleleila03@gmail.com",
         image: "/cabeleleila_leila.png",
-        name: "Cabeleleila Leila",
+        name: "Cabeleleila Leila 03",
         category: ["Corte", "Pintura", "Maquiagem"],
         description:
             "Venha se renovar conosco! Valores competitivos e resultados indiscutíveis!",
@@ -92,8 +95,9 @@ export const dummyStores = [
         city: "Belo Horizonte",
     },
     {
+        email: "cabeleleila04@gmail.com",
         image: "/cabeleleila_leila.png",
-        name: "Cabeleleila Leila",
+        name: "Cabeleleila Leila 04",
         category: ["Corte", "Pintura", "Maquiagem"],
         description:
             "Venha se renovar conosco! Valores competitivos e resultados indiscutíveis!",
@@ -114,8 +118,9 @@ export const dummyStores = [
         city: "Belo Horizonte",
     },
     {
+        email: "cabeleleila05@gmail.com",
         image: "/cabeleleila_leila.png",
-        name: "Cabeleleila Leila",
+        name: "Cabeleleila Leila 05",
         category: ["Corte", "Pintura", "Maquiagem"],
         description:
             "Venha se renovar conosco! Valores competitivos e resultados indiscutíveis!",
@@ -136,8 +141,9 @@ export const dummyStores = [
         city: "Belo Horizonte",
     },
     {
+        email: "cabeleleila06@gmail.com",
         image: "/cabeleleila_leila.png",
-        name: "Cabeleleila Leila",
+        name: "Cabeleleila Leila 06",
         category: ["Corte", "Pintura", "Maquiagem"],
         description:
             "Venha se renovar conosco! Valores competitivos e resultados indiscutíveis!",

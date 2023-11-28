@@ -45,7 +45,8 @@ type Service = {
     time: string;
 };
 
-type StoreCardProps = {
+type CompanyType = {
+    email: string;
     image: string;
     name: string;
     category: string[];
@@ -58,4 +59,23 @@ type StoreCardProps = {
     neighborhood: string;
     state: string;
     city: string;
+};
+
+type Company = Pick<
+    CompanyType,
+    | "email"
+    | "image"
+    | "name"
+    | "category"
+    | "description"
+    | "workDays"
+    | "startTime"
+    | "endTime"
+    | "street"
+    | "homeNumber"
+    | "neighborhood"
+    | "state"
+    | "city"
+> & {
+    setCompany: Function;
 };
