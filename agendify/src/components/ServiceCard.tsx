@@ -98,7 +98,14 @@ export default function ServiceCard({
                                 format="DD/MM/YYYY"
                                 disablePast
                                 maxDate={dayjs(maxDate)}
-                                sx={{ width: 200 }}
+                                sx={{
+                                    width: 200,
+                                    ".MuiButtonBase-root": {
+                                        color: theme.palette.primary.main,
+                                        padding: "0 8px",
+                                        backgroundColor: "transparent",
+                                    },
+                                }}
                             />
                         </DemoItem>
                     </LocalizationProvider>
