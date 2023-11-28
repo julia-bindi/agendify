@@ -1,11 +1,13 @@
-import { AccessibilityContext } from "@/context/AccessibilityContext";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoItem } from "@mui/x-date-pickers/internals/demo";
 import dayjs from "dayjs";
-import React from "react";
+import React, { useEffect } from "react";
 import CustomSelect from "./CustomSelect";
+import { SERVICES_COMPANY_CHECK } from "@/utils/requests";
+import useHttp from "@/hooks/useHttp";
+import { AuthContext } from "@/context/AuthContext";
 
 type ServiceCardProps = {
     id: number;
@@ -13,8 +15,6 @@ type ServiceCardProps = {
     cost: number;
     duration: number;
     description: string;
-    dates: string[];
-    times: string[];
     onConfirm: (a: Service) => void;
 };
 
@@ -24,17 +24,28 @@ export default function ServiceCard({
     cost,
     duration,
     description,
-    dates,
-    times,
     onConfirm,
 }: ServiceCardProps) {
-    const context = React.useContext(AccessibilityContext);
+    const context = React.useContext(AuthContext);
     const theme = useTheme();
     const [date, setDate] = React.useState<string>();
     const [time, setTime] = React.useState<string>();
+    const [possibleTimes, setPossibleTimes] = React.useState<string[]>([]);
+
+    const { loading, success, data, requestHttp } = useHttp();
 
     const minDate = new Date();
     const maxDate = new Date(new Date().setDate(minDate.getDate() + 30));
+    
+    useEffect(() => {
+        if(!data) return;
+        setPossibleTimes(data)
+    }, [data]);
+    
+    useEffect(() => {
+        if(!date) return;
+        requestHttp(SERVICES_COMPANY_CHECK(id, date), {}, context.token);
+    }, [date]);
 
     const handleConfirm = () => {
         onConfirm({
@@ -98,6 +109,7 @@ export default function ServiceCard({
                                 format="DD/MM/YYYY"
                                 minDate={dayjs(minDate)}
                                 maxDate={dayjs(maxDate)}
+                                onChange={(value) => setDate(value?.format('DD/MM/YY'))}
                                 sx={{ width: 200 }}
                             />
                         </DemoItem>
@@ -107,7 +119,8 @@ export default function ServiceCard({
                             Horários
                         </Typography>
                         <CustomSelect
-                            options={times}
+                            disabled={!success}
+                            options={possibleTimes}
                             onChange={(time) => setTime(time)}
                         />
                     </Box>
