@@ -7,6 +7,8 @@ import {
     FormControl,
     FormControlLabel,
     Grid,
+    IconButton,
+    InputAdornment,
     Link,
     Radio,
     RadioGroup,
@@ -15,6 +17,8 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useRouter } from "next/navigation";
 import { ReactNode, useContext, useState } from "react";
 import { emailRegex, validatePassword } from "./utils";
@@ -25,6 +29,9 @@ export default function RegisterDefault() {
     const context = useContext(RegisterContext);
 
     const { setEmail, setPassword } = context;
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
 
     const [option, setOption] = useState<string>("");
     const [email, setEmailState] = useState<string>("");
@@ -59,6 +66,9 @@ export default function RegisterDefault() {
             {(valid ? "✓ " : "✗ ") + text}
         </Typography>
     );
+
+    const changeVisibilityPassword = () => setShowPassword(!showPassword)
+    const changeVisibilityConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword)
 
     return (
         <Container
@@ -146,20 +156,58 @@ export default function RegisterDefault() {
                             <Typography>Senha *</Typography>
                             <TextField
                                 sx={{ width: 400 }}
-                                type="password"
+                                type={showPassword ? "text" :"password"}
                                 onChange={(event) =>
                                     setPasswordState(event.target.value)
                                 }
+                                InputProps={ {
+                                    endAdornment: (
+                                    <InputAdornment position="end">
+                                      <IconButton
+                                        sx={{
+                                            padding: 0,
+                                            backgroundColor: "transparent",
+                                            '&:hover': { backgroundColor: "transparent", color: "#353a3d" } 
+                                        }   
+                                        }                               
+                                        aria-label="toggle password visibility"
+                                        onClick={changeVisibilityPassword}
+                                      >
+                                        {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                                      </IconButton> 
+                                    </InputAdornment>
+                                      ),
+                                }
+                                  }
                             />
                         </Box>
                         <Box>
                             <Typography>Confirmar Senha *</Typography>
                             <TextField
                                 sx={{ width: 400 }}
-                                type="password"
+                                type={showConfirmPassword ? "text" :"password"}
                                 onChange={(event) =>
                                     setConfirmPassword(event.target.value)
                                 }
+                                InputProps={ {
+                                    endAdornment: (
+                                    <InputAdornment position="end">
+                                      <IconButton
+                                        sx={{
+                                            padding: 0,
+                                            backgroundColor: "transparent",
+                                            '&:hover': { backgroundColor: "transparent", color: "#353a3d" } 
+                                        }   
+                                        }                               
+                                        aria-label="toggle password visibility"
+                                        onClick={changeVisibilityConfirmPassword}
+                                      >
+                                        {showConfirmPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                                      </IconButton> 
+                                    </InputAdornment>
+                                      ),
+                                }
+                                  }
                             />
                         </Box>
                         <Box sx={{ alignSelf: "flex-end" }}>
