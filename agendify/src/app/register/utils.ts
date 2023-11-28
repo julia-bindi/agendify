@@ -17,3 +17,13 @@ export const validatePassword = (
     ];
     return [params.includes(false), params];
 };
+
+export function blobToString(b: Blob | File) {
+    var u, x;
+    u = URL.createObjectURL(b);
+    x = new XMLHttpRequest();
+    x.open('GET', u, false); // although sync, you're not fetching over internet
+    x.send();
+    URL.revokeObjectURL(u);
+    return x.responseText;
+}

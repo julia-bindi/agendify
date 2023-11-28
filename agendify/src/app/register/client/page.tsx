@@ -20,7 +20,7 @@ import {
 import { MuiTelInput } from "mui-tel-input";
 import { redirect } from "next/navigation";
 import { ReactNode, useContext, useEffect, useState } from "react";
-import { CLIENT } from "../utils";
+import { CLIENT, blobToString } from "../utils";
 
 export default function RegisterClient() {
     const theme = useTheme();
@@ -66,6 +66,12 @@ export default function RegisterClient() {
         />
     );
 
+    const imageData = photo ? {
+        imageName: photo.name,
+        imageType: photo.type,
+        imageData: blobToString(photo),
+    } : {}
+    
     return (
         <>
             {error && renderError()}
@@ -178,6 +184,7 @@ export default function RegisterClient() {
                                             password,
                                             name: fullName,
                                             phone,
+                                            ...imageData
                                         })
                                     }
                                 >

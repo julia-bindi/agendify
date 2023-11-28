@@ -22,7 +22,7 @@ import {
 import { MuiTelInput } from "mui-tel-input";
 import { redirect } from "next/navigation";
 import { ReactNode, useContext, useEffect, useState } from "react";
-import { COMPANY } from "../utils";
+import { COMPANY, blobToString } from "../utils";
 
 export default function RegisterCompany() {
     const theme = useTheme();
@@ -89,6 +89,12 @@ export default function RegisterCompany() {
             backgroundColor={theme.palette.primary.main}
         />
     );
+
+    const imageData = picture ? {
+        imageName: picture.name,
+        imageType: picture.type,
+        imageData: blobToString(picture),
+    } : {}
 
     return (
         <>
@@ -326,6 +332,7 @@ export default function RegisterCompany() {
                                                 neighborhood,
                                                 city,
                                                 state,
+                                                ...imageData
                                             })
                                         }
                                     >

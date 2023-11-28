@@ -1,6 +1,5 @@
 "use client";
 import { useTheme } from "@mui/material";
-import { dummySchedules } from "@/utils/constants";
 import styles from "./index.module.scss"
 import ScheduleCard from "@/components/ScheduleCard";
 import ConfirmationModal from "@/components/ConfirmationModal";
@@ -18,7 +17,7 @@ export default function Schedules() {
     const [reservations, setReservations] = useState<Service[]>();
 
     useEffect(() => {
-        requestHttp(USER_RESERVATIONS_REQUEST, {}, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJqdWxpYUB0ZXN0LmNvbSIsInR5cGUiOiJDTElFTlQiLCJpYXQiOjE3MDA5NTg5NTN9.rLgrVT6U5tBi458kuMqfM_0VaptLfaFyg2klGv1qKM8');
+        requestHttp(USER_RESERVATIONS_REQUEST, {}, context.token);
     }, [])
 
     useEffect(() => {
@@ -33,6 +32,10 @@ export default function Schedules() {
             })));
         }
     }, [loading, data])
+
+    useEffect(() => {
+        console.log(loading, success, error)
+    }, [loading, success, error])
 
     const handleConfirm = (service:Service) => {
         setCancelService(service);

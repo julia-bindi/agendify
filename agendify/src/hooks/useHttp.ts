@@ -22,10 +22,14 @@ export default function useHttp() {
         headers.append("Content-Type", "application/json; charset=UTF-8")
         token && headers.append("Authorization", "Basic " + token)
 
+        const bodyToRequest = method === 'POST' ? {
+            body: JSON.stringify(body),
+        } : {}
+
         fetch(`https://agendify.onrender.com/api/v1/${url}`, {
             method: method,
             headers: headers,
-            body: JSON.stringify(body),
+            ...bodyToRequest
         })
             .then((response) => response.json())
             .then((data) => {
@@ -33,7 +37,7 @@ export default function useHttp() {
                 setLoading(false);
                 setSuccess(true);
             })
-            .catch(() => {
+            .catch((e) => {
                 setLoading(false);
                 setError(true);
             });
