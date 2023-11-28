@@ -25,21 +25,20 @@ export default function CompanyMain() {
     const [duration, setDuration] = useState<number>();
     const [value, setValue] = useState<number>();
     const [cancelService, setCancelService] = useState<Service | null>(null);
-    const [services, setServices] = useState<Service[]>();
-    const [fetched, setFetched] = useState<boolean>(false);
+    const [services, setServices] = useState<Service[]>([]);
 
-    const { loading, data, requestHttp } = useHttp();
+    const { requestHttp } = useHttp();
+    const { loading: pageLoading, data: pageData, requestHttp: pageRequestHttp } = useHttp();
 
     useEffect(() => {
-        requestHttp(USER_SERVICES_REQUEST, {}, context.token);
+        pageRequestHttp(USER_SERVICES_REQUEST, {}, context.token);
     }, []);
 
     useEffect(() => {
-        if (data && !fetched) {
-            setServices(data);
-            setFetched(true);
+        if (pageData) {
+            setServices(pageData);
         }
-    }, [data]);
+    }, [pageData]);
 
     const handleDelete = (service: Service) => {
         setCancelService(service);
@@ -50,8 +49,8 @@ export default function CompanyMain() {
         requestHttp(SERVICE_DELETE_REQUEST, {
             serviceId: cancelService.id
         }, context.token)
+        setTimeout(() => pageRequestHttp(USER_SERVICES_REQUEST, {}, context.token), 1000)
         setCancelService(null)
-        setFetched(false);
     }
 
     const handleCreateService = () => {
@@ -61,8 +60,7 @@ export default function CompanyMain() {
             duration: duration,
             description: description
         }, context.token);
-        requestHttp(USER_SERVICES_REQUEST, {}, context.token);
-        setFetched(false);
+        setTimeout(() => pageRequestHttp(USER_SERVICES_REQUEST, {}, context.token), 1000)
     }
 
     const renderConfirm = (): ReactNode => (
@@ -171,7 +169,7 @@ export default function CompanyMain() {
                     className={`${styles.main_item} ${styles.main_list}`}
                 >
                     <div className={styles.main_scroll}>
-                        {services && services.map((service: Service, i) => (
+                        {services.length && services.map((service: Service, i) => (
                             <ScheduleCard
                                 onDelete={handleDelete}
                                 key={service.name + i}
