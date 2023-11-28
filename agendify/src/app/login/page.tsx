@@ -14,7 +14,13 @@ import {
     Tooltip,
     Typography,
     useTheme,
+    InputAdornment,
+    IconButton
 } from "@mui/material";
+
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 import { redirect, useRouter } from "next/navigation";
 import { ReactNode, useContext, useEffect, useState } from "react";
 
@@ -27,6 +33,7 @@ export default function Login(): ReactNode {
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const { loading, success, error, data, requestHttp } = useHttp();
 
@@ -58,6 +65,8 @@ export default function Login(): ReactNode {
             backgroundColor={theme.palette.primary.main}
         />
     );
+
+    const changeVisibilityPassword = () => setShowPassword(!showPassword)
 
     return (
         <>
@@ -102,8 +111,28 @@ export default function Login(): ReactNode {
                     <Typography>Senha</Typography>
                     <TextField
                         sx={{ width: 400 }}
-                        type="password"
+                        type={showPassword ? "text" :"password"}
                         onChange={(event) => setPassword(event.target.value)}
+                        
+                        InputProps={ {
+                            endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                sx={{
+                                    padding: 0,
+                                    backgroundColor: "transparent",
+                                    '&:hover': { backgroundColor: "transparent", color: "#353a3d" } 
+                                }   
+                                }                               
+                                aria-label="toggle password visibility"
+                                onClick={changeVisibilityPassword}
+                              >
+                                {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                              </IconButton> 
+                            </InputAdornment>
+                              ),
+                        }
+                          }
                     />
                 </Box>
                 <Tooltip
