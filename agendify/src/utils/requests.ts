@@ -17,6 +17,11 @@ export const USER_RESERVATIONS_REQUEST = {
     method: GET,
 };
 
+export const USER_RESERVATION_CREATE = {
+    url: "reservation/create",
+    method: POST,
+};
+
 export const USER_RESERVATIONS_REQUEST_DELETE = {
     url: "reservation/cancel",
     method: DELETE,

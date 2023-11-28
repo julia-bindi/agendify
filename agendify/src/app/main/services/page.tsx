@@ -4,14 +4,16 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 import ServiceCard from "@/components/ServiceCard";
 import { CompanyContext } from "@/context/CompanyContext";
 import useHttp from "@/hooks/useHttp";
-import { SERVICES_COMPANY_REQUEST } from "@/utils/requests";
+import { SERVICES_COMPANY_REQUEST, USER_RESERVATION_CREATE } from "@/utils/requests";
 import { CircularProgress, Container, useTheme } from "@mui/material";
 import { ReactNode, useContext, useEffect, useState } from "react";
 import styles from "./index.module.scss";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function Login() {
     const theme = useTheme();
     const context = useContext(CompanyContext);
+    const authContext = useContext(AuthContext);
 
     const {
         email,
@@ -47,15 +49,26 @@ export default function Login() {
 
     const [confirmService, setConfirmService] = useState<Service | null>(null);
 
-    const { loading, data, requestHttp } = useHttp();
+    const { requestHttp } = useHttp();
+    const { loading, data, requestHttp: contentRequestHttp } = useHttp();
 
     useEffect(() => {
-        requestHttp(SERVICES_COMPANY_REQUEST(email), {});
+        contentRequestHttp(SERVICES_COMPANY_REQUEST(email), {});
     }, []);
 
     const handleConfirm = (service: Service) => {
         setConfirmService(service);
     };
+
+    const commitConfirmService = () => {
+        if(!confirmService) return;
+        requestHttp(USER_RESERVATION_CREATE, {
+            serviceId: confirmService.id,
+            time: confirmService.time,
+            date: confirmService.date,
+        }, authContext.token);
+        setConfirmService(null);
+    }
 
     const renderConfirm = (): ReactNode => (
         <ConfirmationModal
@@ -69,7 +82,7 @@ export default function Login() {
                       confirmService.cost.toFixed(2)
                     : ""
             }
-            onConfirm={() => {}}
+            onConfirm={commitConfirmService}
             onClose={() => setConfirmService(null)}
         />
     );
@@ -96,7 +109,7 @@ export default function Login() {
                         </Container>
                     ) : (
                         <div className={styles.main_scroll}>
-                            {data &&
+                            {data && data.length && 
                                 data.map((service: any, i: number) => (
                                     <ServiceCard
                                         onConfirm={handleConfirm}

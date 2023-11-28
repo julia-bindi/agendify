@@ -48,6 +48,7 @@ export default function ServiceCard({
     }, [date]);
 
     const handleConfirm = () => {
+        if(!date) return;
         onConfirm({
             id: id,
             name: name,
@@ -57,6 +58,7 @@ export default function ServiceCard({
             date: date ? date : "",
             time: time ? time : "",
         });
+        requestHttp(SERVICES_COMPANY_CHECK(id, date), {}, context.token);
     };
 
     return (

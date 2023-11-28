@@ -28,6 +28,7 @@ export default function CustomSelect({
 
     return (
         <Select 
+            disabled={disabled}
             title={selectedOption}
             sx={{width: "100%"}} 
             value={selectedOption}
