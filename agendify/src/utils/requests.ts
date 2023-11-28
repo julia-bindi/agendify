@@ -1,5 +1,6 @@
 const POST = "POST";
 const GET = "GET";
+const DELETE = "DELETE";
 
 export const LOGIN_REQUEST = {
     url: "user/login",
@@ -14,6 +15,21 @@ export const REGISTER_REQUEST = {
 export const USER_RESERVATIONS_REQUEST = {
     url: "user/reservations",
     method: GET,
+};
+
+export const USER_SERVICES_REQUEST = {
+    url: "user/services",
+    method: GET,
+};
+
+export const SERVICE_CREATE_REQUEST = {
+    url: "service/create",
+    method: POST,
+};
+
+export const SERVICE_DELETE_REQUEST = {
+    url: "service/delete",
+    method: DELETE,
 };
 
 export const COMPANIES_REQUEST = {

@@ -37,6 +37,7 @@ type Accessibility = Pick<AccessibilityType, "mode" | "zoom"> & {
 };
 
 type Service = {
+    id: number;
     name: string;
     cost: number;
     duration: number;

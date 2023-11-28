@@ -9,21 +9,61 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
-import { ReactNode, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import styles from "./index.module.scss";
+import useHttp from "@/hooks/useHttp";
+import { SERVICE_CREATE_REQUEST, USER_SERVICES_REQUEST, SERVICE_DELETE_REQUEST } from "@/utils/requests";
+import { AuthContext } from "@/context/AuthContext";
+import { timeToMin } from "./utils";
 
 export default function CompanyMain() {
     const theme = useTheme();
+    const context = useContext(AuthContext);
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [duration, setDuration] = useState("");
-    const [value, setValue] = useState("");
+    const [duration, setDuration] = useState<number>();
+    const [value, setValue] = useState<number>();
     const [cancelService, setCancelService] = useState<Service | null>(null);
+    const [services, setServices] = useState<Service[]>();
+    const [fetched, setFetched] = useState<boolean>(false);
 
-    const handleConfirm = (service: Service) => {
+    const { loading, data, requestHttp } = useHttp();
+
+    useEffect(() => {
+        requestHttp(USER_SERVICES_REQUEST, {}, context.token);
+    }, []);
+
+    useEffect(() => {
+        if (data && !fetched) {
+            setServices(data);
+            setFetched(true);
+        }
+    }, [data]);
+
+    const handleDelete = (service: Service) => {
         setCancelService(service);
     };
+
+    const deleteService = () => {
+        if(!cancelService) return
+        requestHttp(SERVICE_DELETE_REQUEST, {
+            serviceId: cancelService.id
+        }, context.token)
+        setCancelService(null)
+        setFetched(false);
+    }
+
+    const handleCreateService = () => {
+        requestHttp(SERVICE_CREATE_REQUEST, {
+            name: name,
+            cost: value,
+            duration: duration,
+            description: description
+        }, context.token);
+        requestHttp(USER_SERVICES_REQUEST, {}, context.token);
+        setFetched(false);
+    }
 
     const renderConfirm = (): ReactNode => (
         <ConfirmationModal
@@ -37,7 +77,7 @@ export default function CompanyMain() {
                       cancelService.cost.toFixed(2)
                     : ""
             }
-            onConfirm={() => {}}
+            onConfirm={deleteService}
             onClose={() => setCancelService(null)}
         />
     );
@@ -89,7 +129,7 @@ export default function CompanyMain() {
                         </Typography>
                         <TextField
                             onChange={(event) =>
-                                setDuration(event.target.value)
+                                setDuration(timeToMin(event.target.value))
                             }
                             placeholder="00:00"
                             type="time"
@@ -101,7 +141,7 @@ export default function CompanyMain() {
                             Valor *
                         </Typography>
                         <TextField
-                            onChange={(event) => setValue(event.target.value)}
+                            onChange={(event) => setValue(parseFloat(event.target.value))}
                             sx={{ width: "100%" }}
                             placeholder="00,00"
                             type="number"
@@ -119,6 +159,7 @@ export default function CompanyMain() {
                                 sx={{ width: "100%" }}
                                 variant="contained"
                                 disabled={!enableConfirm}
+                                onClick={handleCreateService}
                             >
                                 Cadastrar
                             </Button>
@@ -130,9 +171,9 @@ export default function CompanyMain() {
                     className={`${styles.main_item} ${styles.main_list}`}
                 >
                     <div className={styles.main_scroll}>
-                        {dummySchedules.map((service, i) => (
+                        {services && services.map((service: Service, i) => (
                             <ScheduleCard
-                                onDelete={handleConfirm}
+                                onDelete={handleDelete}
                                 key={service.name + i}
                                 {...service}
                             />

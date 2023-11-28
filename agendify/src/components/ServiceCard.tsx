@@ -4,6 +4,7 @@ import React from "react";
 import CustomSelect from "./CustomSelect";
 
 type ServiceCardProps = {
+    id: number;
     name: string;
     cost: number;
     duration: number;
@@ -14,6 +15,7 @@ type ServiceCardProps = {
 };
 
 export default function ServiceCard({
+    id,
     name,
     cost,
     duration,
@@ -29,6 +31,7 @@ export default function ServiceCard({
 
     const handleConfirm = () => {
         onConfirm({
+            id: id,
             name: name,
             cost: cost,
             duration: duration,

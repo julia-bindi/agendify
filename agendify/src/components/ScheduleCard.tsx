@@ -2,6 +2,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 
 type ScheduleCardProps = {
+    id: number;
     name: string;
     cost: number;
     duration: number;
@@ -12,6 +13,7 @@ type ScheduleCardProps = {
 };
 
 export default function ScheduleCard({
+    id,
     name,
     cost,
     duration,
@@ -24,6 +26,7 @@ export default function ScheduleCard({
 
     const handleDelete = () => {
         onDelete({
+            id: id,
             name: name,
             cost: cost,
             duration: duration,
@@ -74,7 +77,7 @@ export default function ScheduleCard({
                 </Typography>
                 <Typography sx={{ fontSize: 14 }}>{description}</Typography>
                 <Typography sx={{ fontSize: 14 }}>
-                    {date + " - " + time}
+                    {date ? (date + " - " + time) : <>&nbsp;</>}
                 </Typography>
                 <Typography>{"R$ " + cost.toFixed(2)}</Typography>
             </Box>

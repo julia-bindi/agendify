@@ -22,11 +22,11 @@ export default function useHttp() {
         headers.append("Content-Type", "application/json; charset=UTF-8")
         token && headers.append("Authorization", "Basic " + token)
 
-        const bodyToRequest = method === 'POST' ? {
+        const bodyToRequest = method !== 'GET' ? {
             body: JSON.stringify(body),
         } : {}
 
-        fetch(`https://agendify.onrender.com/api/v1/${url}`, {
+        fetch(`https://agendify-api.onrender.com/api/v1/${url}`, {
             method: method,
             headers: headers,
             ...bodyToRequest
