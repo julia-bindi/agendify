@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, Container, Link, Typography } from "@mui/material";
+import { Container, Link, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -15,7 +15,7 @@ export default function Home() {
                 flexDirection: "column",
                 alignItems: "center",
                 width: "fit-content",
-                rowGap: "20px",
+                rowGap: "24px",
                 position: "absolute",
                 top: "50%",
                 left: "50%",
@@ -28,27 +28,21 @@ export default function Home() {
                 width={704}
                 height={160}
                 priority
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "default" }}
             />
             <Typography sx={{ fontSize: 40 }}>
                 Marcar um serviço agora é fácil!
             </Typography>
-            <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    rowGap: "10px",
-                }}
-            >
-                <Typography>Já possui uma conta?</Typography>
-                <Button
-                    variant="contained"
+            <Typography>
+                Já possui uma conta?{" "}
+                <Link
+                    color="primary"
+                    underline="hover"
                     onClick={() => router.push("/login")}
                 >
                     Entrar
-                </Button>
-            </Box>
+                </Link>
+            </Typography>
             <Typography>
                 Não possui uma conta?{" "}
                 <Link
